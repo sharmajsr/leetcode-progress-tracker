@@ -14,7 +14,6 @@ public:
             q.pop();
             if(itr.first == endWord)
                 ans = itr.second;
-            cout<<itr.first<<endl;
             int slen = itr.first.size();
             string it = itr.first;
             for(int i=0;i<slen;i++){
