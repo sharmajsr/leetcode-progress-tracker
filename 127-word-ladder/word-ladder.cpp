@@ -14,7 +14,7 @@ public:
             auto itr = q.front();
             q.pop();
             if(itr.first == endWord)
-                ans = itr.second;
+                return itr.second;
             int slen = itr.first.size();
             string it = itr.first;
             for(int i=0;i<slen;i++){
