@@ -4,11 +4,12 @@ public:
         int ans = 0;
         queue<pair<string,int>>q;
         q.push({beginWord,1});
-        unordered_set<string>se;
-        for(auto i : wordList) se.insert(i);
-        if(se.find(endWord) == se.end()){
-            return 0;
-        }
+        unordered_set<string>se(wordList.begin(),wordList.end() );
+        se.erase(beginWord);
+        // for(auto i : wordList) se.insert(i);
+        // if(se.find(endWord) == se.end()){
+        //     return 0;
+        // }
         while(!q.empty()){
             auto itr = q.front();
             q.pop();
