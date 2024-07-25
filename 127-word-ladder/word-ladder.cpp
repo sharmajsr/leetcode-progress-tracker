@@ -4,7 +4,7 @@ public:
         int ans = 0;
         queue<pair<string,int>>q;
         q.push({beginWord,1});
-        set<string>se;
+        unordered_set<string>se;
         for(auto i : wordList) se.insert(i);
         if(se.find(endWord) == se.end()){
             return 0;
