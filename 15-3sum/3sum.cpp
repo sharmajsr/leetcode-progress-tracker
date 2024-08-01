@@ -18,9 +18,9 @@ public:
                     cur.push_back(nums[k]);
                     se.insert(cur);
                     
-                    while(nums[j] == nums[j+1] && j+1<k)
+                    while(j<k && nums[j] == nums[j+1] )
                         ++j;
-                    while(nums[k] == nums[k-1] && k-1>j)
+                    while( j<k && nums[k] == nums[k-1])
                         --k;
                     ++j;
                     --k;
