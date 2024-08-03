@@ -5,7 +5,8 @@ public:
             ans.push_back(op);
             return ;
         }
-        for(int i=0;i<nums.size();i++){
+        int n= nums.size();
+        for(int i=0;i<n;i++){
             vector<int>se = nums;
             se.erase(se.begin()+i);
             op.push_back(nums[i]);
@@ -17,7 +18,6 @@ public:
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>>ans;
         vector<int>op;
-        int n =nums.size();
         permutations(nums, op,ans);
 
         return ans;
