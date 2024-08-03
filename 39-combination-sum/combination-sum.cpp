@@ -1,16 +1,16 @@
 class Solution {
 public:
-    void solve(vector<int>nums , vector<int>op,int curSum, int target , map<vector<int>,int>&mp){
-        if( target  == curSum){
+    void solve(vector<int>nums , vector<int>op, int target , map<vector<int>,int>&mp){
+        if( target  == 0){
             sort(op.begin(),op.end());
             mp[op]=1;
             // se.insert(op);
             return;
         }
         for(auto i :nums){
-            if( i + curSum <= target){
+            if(  target-i >= 0){
                 op.push_back(i);
-                solve(nums,op,curSum+i,target,mp);
+                solve(nums,op,target-i,mp);
                 op.pop_back();
             }
         }
@@ -20,7 +20,7 @@ public:
         vector<int>op;
         set<vector<int>>se;
         map<vector<int>,int> mp;
-        solve(candidates,op,0,target,mp);
+        solve(candidates,op,target,mp);
         for(auto i : mp){
             ans.push_back(i.first);
         }
