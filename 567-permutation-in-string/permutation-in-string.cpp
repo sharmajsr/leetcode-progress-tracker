@@ -6,27 +6,26 @@ public:
         vector<int>vec1(26,0);
         for(int i=0;i<n1;i++){
             ++vec[s1[i]-'a'];
-            cout<<s1[i]<<" "<<vec[s1[i]-'a']<<endl;
+            // cout<<s1[i]<<" "<<vec[s1[i]-'a']<<endl;
         }
         int i=0,j=0;
         while(j<n2){ 
             // cout<<s2[j]<<" "<<j<<endl;
             if(n1 > (j-i )){
-                cout<<"isnide if "<<endl;
-                ++vec1[s2[j]-'a'];
+                // cout<<"isnide if "<<endl;
+                --vec[s2[j]-'a'];
                 ++j;
             }
             else if(n1 == (j-i)){
-                cout<<"isnide else "<<endl;
-                --vec1[s2[i]-'a'];
-                ++vec1[s2[j]-'a'];
+                // cout<<"isnide else "<<endl;
+                ++vec[s2[i]-'a'];
+                --vec[s2[j]-'a'];
                 ++i;
                 ++j;
             }
             bool ans = true;
             for(int k=0;k<26;k++){
-                
-                if(vec[k] != vec1[k]){
+                if(vec[k] != 0){
                     // cout<<j<<" "<<k<<" "<<vec[k]<<" "<<vec1[k]<<endl;
                     ans= false;
                 }
