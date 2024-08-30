@@ -7,11 +7,11 @@ public:
             sum += nums[j];
             ++j;
             while(sum >= target){
-                ans= min(ans, j-i+1);
+                ans= min(ans, j-i);
                 sum -= nums[i];
                 ++i;
             }
         }
-        return ans == INT_MAX? 0 :ans-1 ;
+        return ans == INT_MAX? 0 :ans ;
     }
 };
