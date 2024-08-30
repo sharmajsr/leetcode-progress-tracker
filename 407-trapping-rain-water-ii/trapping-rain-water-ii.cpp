@@ -34,7 +34,7 @@ public:
     
         while(!minHeap.empty()){
             auto it = minHeap.top();
-            cout<<it.row<<" "<<it.col<<" "<<it.height<<endl;
+            // cout<<it.row<<" "<<it.col<<" "<<it.height<<endl;
             minHeap.pop();
             for(int i=0;i<4;i++){
                 
@@ -44,7 +44,7 @@ public:
                 nCol >= 0 && nCol < m  &&
                 vis[nRow][nCol] == 0 
                 ){
-                    cout<<it.row<<" "<<it.col<<" "<<it.height<<" "<<nRow<<" "<<nCol<<" "<<height[nRow][nCol]<< endl;
+                    // cout<<it.row<<" "<<it.col<<" "<<it.height<<" "<<nRow<<" "<<nCol<<" "<<height[nRow][nCol]<< endl;
                     vis[nRow][nCol] = 1; 
                     if(height[nRow][nCol] > it.height){
                         minHeap.push({nRow,nCol,height[nRow][nCol]});
