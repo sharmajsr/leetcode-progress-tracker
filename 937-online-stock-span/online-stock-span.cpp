@@ -1,14 +1,12 @@
 class StockSpanner {
 public:
     stack<pair<int,int>>st;
-    int total = 0 ;
     StockSpanner() {
         st.empty();  
-        total = 0;
     }
     
     int next(int price) {
-        // ++total;
+        
         int ans = 1;
         if(st.empty()){
             st.push({price,1});
@@ -26,8 +24,6 @@ public:
                     
             }
             ans = del+1;
-
-            // cout<<price<<" "<<ans<<endl;
             st.push({price,ans});
             return ans;
         }
