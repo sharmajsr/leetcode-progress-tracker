@@ -17,13 +17,13 @@ public:
             return ans;
         }
         else{
-            int del = 0;
+            // int del = 0;
             while(!st.empty() and price >= st.top().first ){
-                    del += st.top().second;
+                    ans += st.top().second;
                     st.pop();
                     
             }
-            ans = del+1;
+            // ans = del+1;
             st.push({price,ans});
             return ans;
         }
