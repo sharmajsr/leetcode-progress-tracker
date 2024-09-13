@@ -23,7 +23,7 @@ public:
             string s1;
             for(int j=0; j < s.size(); j++){
                 temp += s[j]-'0'; 
-                s1+= to_string(s[j]-'0');
+                s1+= getString(s[j]-'0');
                 
             }
             s = getString(temp);
