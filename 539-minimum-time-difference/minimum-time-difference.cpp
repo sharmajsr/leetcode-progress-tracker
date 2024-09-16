@@ -25,7 +25,7 @@ public:
         for(int i=1;i<timeStamps.size();i++){
             int t1 = abs(timeStamps[i]-timeStamps[i-1]);
             int t2 = abs(timeStamps[i-1]-timeStamps[i]);
-            cout<<i<<" "<<t1<<" "<<t2<<endl;
+            // cout<<i<<" "<<t1<<" "<<t2<<endl;
             ans = min(ans, min(t1,t2));
         }
         return ans;
