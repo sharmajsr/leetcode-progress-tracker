@@ -1,28 +1,34 @@
 class Solution {
 public:
+    int maxi(int a , int b){
+        if(a > b)   return a;
+        return b;
+    }
     bool canPartition(vector<int>& nums) {
-        int tsum = 0 ,n =nums.size() ; 
-        for(auto i : nums){
-            tsum += i ;
-        }
-        if(tsum & 1)    return false;
-        tsum /=2;
-        int dp[n+1][tsum+1];
+        int tsum = 0 ;
+        for(int i : nums)    tsum+=i;
+        if(tsum % 2 )   return false;
+        tsum /=2 ;
         
-        memset(dp,0,sizeof(dp));
+        int n = nums.size();
+        int t[n+1][tsum+1];
         for(int i=0;i<=n;i++){
-            dp[i][0] =1;
-        }
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=tsum ;j++){
-                if( j >= nums[i-1]){
-                    dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i-1]];
-                }
-                else{
-                    dp[i][j] = dp[i-1][j];
+            for(int j=0;j<=tsum;j++){
+                t[i][j] = 0;
+                if(j==0){
+                    t[i][j] = 1;
                 }
             }
         }
-        return dp[n][tsum];
+        for(int i=1 ; i<=n ; i++){
+            for(int j=1 ; j<=tsum ; j++){
+                if( j >= nums[i-1]){
+                    t[i][j] = t[i-1][j]  || t[i-1][j-nums[i-1]] ;
+                }else{
+                    t[i][j] = t[i-1][j];
+                }
+            }
+        }
+        return t[n][tsum];
     }
 };
