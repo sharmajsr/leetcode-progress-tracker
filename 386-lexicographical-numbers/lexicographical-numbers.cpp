@@ -1,20 +1,5 @@
 class Solution {
 public:
-    static bool comp(const string &a,const string &b){
-        return a+b > b+a;
-    }
-    int firstChar(int i){
-        while(i>9)  i/=10;
-        return i;
-    }
-    // 1123
-    int convertStringToNum(string s){
-        int ans = 0;
-        for(auto i : s){
-            ans = ans*10 + i-'0';
-        }
-        return ans;
-    }
     vector<int>ans;
     void dfs(int curr,int n){
         if(curr>n) return ;
