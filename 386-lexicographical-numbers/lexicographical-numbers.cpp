@@ -11,10 +11,6 @@ public:
         }
     }
     vector<int> lexicalOrder(int n) {
-        // vector<int>ans;
-        vector<string>f;
-
-        vector<string>numbers[10];
         for(int i= 1 ;i<=9;i++){
             dfs(i,n);
         }
