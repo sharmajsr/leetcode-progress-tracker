@@ -15,29 +15,24 @@ public:
         }
         return ans;
     }
+    vector<int>ans;
+    void dfs(int curr,int n){
+        if(curr>n) return ;
+        ans.push_back(curr);
+        for(int i=0;i<=9;i++){
+            int x = curr * 10 + i;
+            if(x > n)   return;
+            dfs(x,n);
+        }
+    }
     vector<int> lexicalOrder(int n) {
-        vector<int>ans;
+        // vector<int>ans;
         vector<string>f;
 
         vector<string>numbers[10];
-        for(int i=1;i<=n;i++){
-            string temp = to_string(i);
-            int firstNum = firstChar(i);
-            f.push_back(temp);
-            numbers[firstNum].push_back(temp);
+        for(int i= 1 ;i<=9;i++){
+            dfs(i,n);
         }
-        sort(f.begin(),f.end());
-        for(auto i : f){
-            ans.push_back(convertStringToNum(i));
-        }
-        // for(int i=1;i<=9;i++){
-        //     vector<string>v = numbers[i];
-        //     sort(v.begin(),v.end());
-        //     for(auto num: v){
-        //         int numi = convertStringToNum(num);
-        //         ans.push_back(numi);
-        //     }
-        // }
         return ans;
     }
 };
