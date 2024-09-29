@@ -11,7 +11,7 @@ public:
     }
     char kthCharacter(int k) {
         string s ;
-        s = solve("a",10);
+        s = solve("a",9);
         cout<<s<<endl;
         return s[k-1];
     }
