@@ -1,38 +1,44 @@
 class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
-        int n1 = s1.size(), n2 =s2.size();
-        vector<int>vec(26,0);
-        vector<int>vec1(26,0);
-        for(int i=0;i<n1;i++){
-            ++vec[s1[i]-'a'];
-            // cout<<s1[i]<<" "<<vec[s1[i]-'a']<<endl;
+        unordered_map<int,int>um1,um2,um3;
+        for(auto i : s1)  ++um1[i-'a'];
+        for(auto i : s2)  ++um3[i-'a'];
+        for(auto i : um1){
+            if(um1[i.first] > um3[i.first]){
+                return false;
+            }
         }
-        int i=0,j=0;
-        while(j<n2){ 
-            // cout<<s2[j]<<" "<<j<<endl;
-            if(n1 > (j-i )){
-                // cout<<"isnide if "<<endl;
-                --vec[s2[j]-'a'];
-                ++j;
-            }
-            else if(n1 == (j-i)){
-                // cout<<"isnide else "<<endl;
-                ++vec[s2[i]-'a'];
-                --vec[s2[j]-'a'];
-                ++i;
-                ++j;
-            }
-            bool ans = true;
-            for(int k=0;k<26;k++){
-                if(vec[k] != 0){
-                    // cout<<j<<" "<<k<<" "<<vec[k]<<" "<<vec1[k]<<endl;
-                    ans= false;
+        um2 = um1;
+        bool ans = false;
+        int n = s2.size() , m = s1.size();
+        
+        for(int i=0 ; i<n; i++){
+            int num = s2[i]-'a';
+            cout<<i<<" "<<s2[i]<<endl;
+            if(um1.find(num) != um1.end()){
+                --um1[num];
+                if(um1[num] == 0 )  um1.erase(num);
+                int j = i+1;
+                while(j<n and um1.size() > 0 ){
+                    num = s2[j]-'a'; 
+                    if(um1.find(num) != um1.end()){
+                        --um1[num];
+                        if(um1[num] == 0 )  um1.erase(num);
+                    }else{
+                        break;
+                    }
+                    ++j;
+                }
+                if(um1.size() == 0){
+                    ans = true;
+                    break;
+                }else{
+                    um1 = um2;
                 }
             }
-            if(ans == true ) return true;
 
         }
-        return false;
+        return ans;
     }
 };
