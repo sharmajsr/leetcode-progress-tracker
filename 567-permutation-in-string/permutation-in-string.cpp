@@ -32,10 +32,14 @@ public:
                 }
                 if(um1.size() == 0){
                     ans = true;
+                    return ans;
                     break;
                 }else{
                     um1 = um2;
                 }
+            }
+            if(ans == true){
+                
             }
 
         }
