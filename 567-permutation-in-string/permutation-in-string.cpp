@@ -15,7 +15,7 @@ public:
         
         for(int i=0 ; i<n; i++){
             int num = s2[i]-'a';
-            cout<<i<<" "<<s2[i]<<endl;
+            // cout<<i<<" "<<s2[i]<<endl;
             if(um1.find(num) != um1.end()){
                 --um1[num];
                 if(um1[num] == 0 )  um1.erase(num);
