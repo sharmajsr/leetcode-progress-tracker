@@ -4,10 +4,7 @@ public:
         int n = s.size();
         stack<char>stk;
         for(auto i : s){
-            if(stk.empty()){
-                stk.push(i);
-            }
-            else if(!stk.empty() and stk.top() =='(' and i ==')'){
+            if(!stk.empty() and stk.top() =='(' and i ==')'){
                 stk.pop();
             }
             else{
