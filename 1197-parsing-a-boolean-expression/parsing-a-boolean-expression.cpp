@@ -1,12 +1,5 @@
 class Solution {
 public:
-    void printStack(stack<char>st){
-        while(!st.empty()){
-            cout<<st.top()<<" ";
-            st.pop();
-        }
-        cout<<endl;
-    }
     bool parseBoolExpr(string exp) {
         stack<char>optr, operand;
         for(auto i : exp){
@@ -27,9 +20,6 @@ public:
                     optr.pop();
                     operand.pop();
                     operand.push(ans == true ? 't' : 'f');
-                    // cout<<"& "<<ans<<endl;
-                    // printStack(optr);
-                    // printStack(operand);
                 }
                 else if(!optr.empty() and optr.top() =='|'){
                     bool ans = false;
@@ -41,9 +31,6 @@ public:
                     optr.pop();
                     operand.pop();
                     operand.push(ans == true ? 't' : 'f');
-                    // cout<<"or "<<ans<<endl;
-                    // printStack(optr);
-                    // printStack(operand);
                 }
                 else if(!optr.empty() and optr.top() =='!'){
                     bool top = operand.top() == 't'? true : false;
@@ -52,9 +39,6 @@ public:
                     optr.pop();
                     operand.pop();
                     operand.push(ans == true ? 't' : 'f');
-                    // cout<<"! "<<ans<<endl;
-                    // printStack(optr);
-                    // printStack(operand);
                 }
             }
         }
