@@ -1,29 +1,23 @@
 class Solution {
 public:
-    void solve(vector<int>nums , vector<int>op, int target , map<vector<int>,int>&mp){
-        if( target  == 0){
-            sort(op.begin(),op.end());
-            mp[op]=1;
-            // se.insert(op);
+    void solve(int target,vector<int>candidates,int start,vector<int>op,vector<vector<int>>&ans){
+        if(target == 0 ){
+            ans.push_back(op);
             return;
         }
-        for(auto i :nums){
-            if(  target-i >= 0){
-                op.push_back(i);
-                solve(nums,op,target-i,mp);
+        for(int i= start;i<candidates.size();i++){
+            if(target >= candidates[i]){
+                op.push_back(candidates[i]);
+                solve(target - candidates[i] , candidates , i,op,ans);
                 op.pop_back();
             }
         }
+
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>>ans;
-        vector<int>op;
-        set<vector<int>>se;
-        map<vector<int>,int> mp;
-        solve(candidates,op,target,mp);
-        for(auto i : mp){
-            ans.push_back(i.first);
-        }
+        
+        solve(target, candidates, 0,{},ans);
         return ans;
     }
 };
