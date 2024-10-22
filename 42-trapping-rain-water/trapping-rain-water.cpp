@@ -1,22 +1,29 @@
 class Solution {
 public:
     int trap(vector<int>& he) {
-        int ans= 0, n= he.size();;
-        vector<int>lH(n,0);
-        vector<int>rH(n,0);
-        int maxi = 0;
-        for(int i=0;i<n;i++){
-            maxi =max(maxi,he[i]);
-            lH[i] = maxi;
-        }
-        maxi =0 ;
-        for(int i=n-1;i>=0;i--){
-            maxi =max(maxi,he[i]);
-            rH[i] = maxi;
-        }
-        for(int i=0;i<n;i++){
-            ans += min(rH[i],lH[i])-he[i];
-        }
+        int ans = 0 , n= he.size();
+        int l = 0 , r= n-1 ;
+        int lBar = 0, rBar = 0;
+        while(l < r){
+            if(he[l] <= he[r]){
+                if(lBar >he[l]){
+                    ans += (lBar-he[l]);
+                }
+                else{
+                    lBar = he[l];
+                }
+                ++l;
+            }
+            else{
+                if(rBar > he[r]){
+                    ans += (rBar - he[r]);
+                }else{
+                    rBar = he[r];
+                    
+                }
+                --r;
+            }
+        } 
         return ans;
     }
 };
