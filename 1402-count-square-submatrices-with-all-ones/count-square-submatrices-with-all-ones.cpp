@@ -14,12 +14,10 @@ public:
         int n  = matrix.size(),ans = 0 ;
         int m = matrix[0].size();
         int maxSquareSize = min(n,m);
-        vector<vector<int>>grid(n,vector<int>(m,0));
         for(int l=1; l <= maxSquareSize; l++){
             for(int i=0;i<n;i++){
                 for(int j=0;j<m;j++){
-                    if(matrix[i][j] and checkSquareExists(matrix,i,j,l)){
-                        // cout<<l<<" "<<i<<" "<<j<<" "<<ans<<endl;
+                    if(matrix[i][j] and i+l <=n and j+l <=m and checkSquareExists(matrix,i,j,l)){
                         ++ans;
                     }
                 }
