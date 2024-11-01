@@ -2,7 +2,7 @@ class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
         int n = nums.size();
-        vector<int>lis(n,1);
+        // vector<int>lis(n,1);
         // stack<pair<int,int>>st;
         // vector<int>dis(n,-1);
         // for(int i=0;i<n;i++){
