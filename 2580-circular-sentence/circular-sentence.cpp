@@ -14,7 +14,7 @@ public:
         for(int i= 1 ;i <str.size() ; i++){
             string curWord = str[i];
             string prevWord = str[i-1];
-            cout<<curWord<<" "<<prevWord<<endl;
+            // cout<<curWord<<" "<<prevWord<<endl;
             if(curWord[0] != prevWord[prevWord.size()-1]){
                 return false;
             }
