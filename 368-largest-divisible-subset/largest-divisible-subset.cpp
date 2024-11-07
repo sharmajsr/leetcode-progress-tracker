@@ -19,17 +19,12 @@ public:
                     maxLisIndex = i;
             }
         }
-        for(int i=0;i<n;i++){
-            // cout<<i<<" "<<nums[i]<<" "<<lis[i]<<" "<<dis[i]<<endl;
-        }    
-        cout<<"Max lis index : "<<maxLisIndex<<endl;
         while(dis[maxLisIndex] != maxLisIndex){
             ans.push_back(nums[maxLisIndex]);
             maxLisIndex =dis[maxLisIndex];
         }
         ans.push_back(nums[maxLisIndex]);
         reverse(ans.begin(),ans.end());
-        // for(auto i : ans)   cout<<i<<"  ";
         return ans;
     }
 };
