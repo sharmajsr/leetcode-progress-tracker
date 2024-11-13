@@ -55,7 +55,7 @@ public:
             // cout<<"start : "<<cur<<endl;
             
             while(cur.size()>0 and mp.find(cur) == mp.end()){
-                cout<<cur<<endl;
+                // cout<<cur<<endl;
                 // cur.erase(cur.size()-1);
                 cur = cur.substr(0,cur.size()-1);
             }
