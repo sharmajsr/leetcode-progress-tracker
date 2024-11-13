@@ -1,23 +1,5 @@
 class Solution {
 public:
-    int lcp(int a, int b){
-        string s1 = to_string(a);
-        string s2 = to_string(b);
-        string ans ;
-        int i=0,j=0;
-        while(i<s1.size() and j<s2.size()){
-            if(s1[i] == s2[j]){
-                ans+=s1[i];
-                ++i;
-                ++j;
-            }
-            else{
-                break;
-            }
-        }
-        return ans.size();
-
-    }
     int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
         int m1 = 0 , m2 = 0 ; 
         for(auto i : arr1)  m1 = max(i,m1);
