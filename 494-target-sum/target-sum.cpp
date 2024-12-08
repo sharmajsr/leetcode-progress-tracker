@@ -14,9 +14,9 @@ public:
                 }else{
                     dp[i][j] = dp[i-1][j];
                 }
-                cout<<dp[i][j]<<" ";
+                // cout<<dp[i][j]<<" ";
             }
-            cout<<endl;
+            // cout<<endl;
         }
         return dp[n][target];
     }
@@ -47,7 +47,6 @@ public:
         if((tsum + target) %2 ==1  )    return 0;
         int newTarget = (tsum + target)/2;
         int ans = countOfSubsetSum(nums.size(),newTarget,nums);
-        cout<<"countOfZeros : "<<countOfZeros<<endl;
         return countOfZeros > 0 ? ans*pow(2,countOfZeros) :ans; 
     }
 };
