@@ -8,14 +8,11 @@ public:
             minHeap.push({nums[i],i});
         }
         while(k--){
-            auto top = minHeap.top();
+            auto [value,index] = minHeap.top();
+            nums[index]= value * multiplier;
             minHeap.pop();
-            minHeap.push({top.first*multiplier,top.second});
+            minHeap.push({nums[index],index});
         }
-        while(!minHeap.empty()){
-            ans[minHeap.top().second]=minHeap.top().first;
-            minHeap.pop();
-        }
-        return ans;
+        return nums;
     }
 };
