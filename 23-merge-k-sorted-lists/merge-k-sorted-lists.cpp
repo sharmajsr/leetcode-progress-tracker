@@ -21,10 +21,9 @@ public:
         }
         ListNode* dummyNode = new ListNode();
         ListNode* head =dummyNode;
-        // dummyNode->next = head
         while(!nodes.empty()){
             auto top = nodes.top();
-            cout<<top.first<<endl;
+            // cout<<top.first<<endl;
             nodes.pop();
             dummyNode->next =  top.second;
             dummyNode = dummyNode->next;
