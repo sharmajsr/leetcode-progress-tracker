@@ -12,10 +12,17 @@ public:
         for(auto i :s){
             ++freq[i-'a'];
         }
-        for(int i=25;i>=0;i--){ while(freq[i] > 0 ){
-                for(int j=0;j<k and freq[i] > 0;j++){
-                    ans += i+'a';
-                    --freq[i];
+        for(int i=25;i>=0;i--){ 
+            while(freq[i] > 0 ){
+                if(freq[i]>k){
+                    string s(k, char(i+'a')); 
+                    freq[i]-=k;
+                    ans+=s;
+                }else{
+                    for(int j=0;j<k and freq[i] > 0;j++){
+                        ans += i+'a';
+                        --freq[i];
+                    }
                 }
                 if(freq[i]>0){
                     int nxtAvailableCharacterIndex = findNextAvailableCharacter(i,freq);
@@ -27,8 +34,6 @@ public:
                     }
                 }
             }
-                
-            
         }
         return ans;
     }
