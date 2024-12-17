@@ -12,11 +12,7 @@ public:
         for(auto i :s){
             ++freq[i-'a'];
         }
-        for(int i=25;i>=0;i--){
-            // cout<<char(i+'a')<<" "<<freq[i]<<endl;
-            
-                
-            while(freq[i] > 0 ){
+        for(int i=25;i>=0;i--){ while(freq[i] > 0 ){
                 for(int j=0;j<k and freq[i] > 0;j++){
                     ans += i+'a';
                     --freq[i];
