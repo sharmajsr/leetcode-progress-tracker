@@ -1,30 +1,31 @@
 class Solution {
 public:
-    bool canFinish(int n, vector<vector<int>>& pre) {
-        vector<int>in(n,0);
-        vector<int>ans;
-        vector<int>adj[n];
+    bool canFinish(int numC, vector<vector<int>>& prerequisites) {
+        vector<int>adj[numC];
+        vector<int>in(numC,0);
+        vector<int>toposort;
         queue<int>q;
-        for(auto i : pre){
+        for(auto i : prerequisites){
+            // if(i[1] == i[0])    return false;
             adj[i[1]].push_back(i[0]);
             ++in[i[0]];
         }
-        for(int i=0;i<n;i++){
-            if(in[i] == 0 ){
-                q.push(i);
-            }
+        for(int i=0;i<numC;i++){
+            if(in[i] == 0 ) q.push(i);
         }
         while(!q.empty()){
-            auto it = q.front();
+            auto cur = q.front();
             q.pop();
-            ans.push_back(it);
-            for(auto j : adj[it]){
+            toposort.push_back(cur);
+            
+            for(auto j : adj[cur]){
                 --in[j];
-                if( in[j] == 0 ){
+                if(in[j] == 0 ){
                     q.push(j);
                 }
             }
         }
-        return ans.size() == n;
+        return numC == toposort.size();
+
     }
 };
