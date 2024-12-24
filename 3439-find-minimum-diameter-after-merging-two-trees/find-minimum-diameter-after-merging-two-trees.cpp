@@ -41,7 +41,7 @@ public:
             q=qu;
             ++hops;
         }
-        cout<<last<<" "<<hops<<endl;
+        // cout<<last<<" "<<hops<<endl;
         return hops-1;
         
     }
@@ -49,19 +49,12 @@ public:
         int n =edges.size(),minDiameter = 0 ;
         vector<int>vis(n,0);
         vector<int>dis(n,0);
-        // vector<int>adj[n];
         unordered_map<int,vector<int>>adj;
         for(auto i : edges){
             adj[i[0]].push_back(i[1]);
             adj[i[1]].push_back(i[0]);
         }
         
-        // for(int i= 0 ;i<n;i++){
-        //     if(!vis[i]) dfs(adj,n);
-        // }
-        // for(int i=0;i<n;i++){
-        //     minDiameter = min(minDiameter,dis[i]);
-        // }
         return dfs(adj,n);
     }
     int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {
