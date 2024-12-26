@@ -1,52 +1,41 @@
 class Solution {
 public:
-    vector<int>v;
-    int countOfSubsetSum(int n,int target,vector<int>nums){
-        // int dp[n+1][target+1];
+
+    int countSubsetSum(vector<int>nums,int target){
+        int n = nums.size();
         vector<vector<int>>dp(n+1,vector<int>(target+1,0));
         for(int i=0;i<=n;i++){
-                dp[i][0]=1;
+            dp[i][0]=1;
         }
         for(int i=1;i<=n;i++){
             for(int j=1;j<=target;j++){
-                if(j >= nums[i-1]){
+                if( j>= nums[i-1]){
                     dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]];
-                }else{
+                }
+                else{
                     dp[i][j] = dp[i-1][j];
                 }
-                // cout<<dp[i][j]<<" ";
             }
-            // cout<<endl;
         }
         return dp[n][target];
     }
-    // int solve(int n,int target,int curr,vector<int>nums){
-        
-    //     if( n == 0 ){
-    //         if( target == curr )  return 1;
-    //         else return 0;
-    //     }
-    //     if(v[n] != -1)  return v[n];
-    //     return v[n] = solve(n-1,target,curr+nums[n-1],nums) + solve(n-1,target,curr-nums[n-1],nums);
-        
-    // }
     int findTargetSumWays(vector<int>& nums, int target) {
-        // v.resize(nums.size()+1,-1);
-        // return solve(nums.size(),target,0,nums);
-        int countOfZeros = 0,tsum = 0 ;
+        int tsum = 0 , countOfZeros = 0 ;
         vector<int>nums1;
-        for(auto i : nums){ 
-            if( i == 0 ) ++countOfZeros ; 
-            else{
-                nums1.push_back(i);
-            }
+        for(auto i : nums){
             tsum += i ;
-        }
-        if(countOfZeros > 0 ) nums = nums1;
+            if(i != 0 )   nums1.push_back(i);
+            else {
+                ++countOfZeros;
+            }
+        } 
         if(tsum + target < 0 )  return 0;
         if((tsum + target) %2 ==1  )    return 0;
-        int newTarget = (tsum + target)/2;
-        int ans = countOfSubsetSum(nums.size(),newTarget,nums);
-        return countOfZeros > 0 ? ans*pow(2,countOfZeros) :ans; 
+
+        
+        int fsum = (abs(tsum)+abs(target))*0.5;
+        int ans = countSubsetSum(nums1,fsum);
+        cout<<ans<<endl;
+        return countOfZeros > 0 ? ans * pow(2,countOfZeros) : ans;
     }
 };
