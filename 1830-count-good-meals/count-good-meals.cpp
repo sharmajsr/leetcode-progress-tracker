@@ -12,7 +12,8 @@ public:
             for(int j=0;j<23;j++){
                 int diff = powerOfTwo[j]-del[i];
                 if(um.find(diff) != um.end() ){
-                    ans =  (  ans + um[diff] )% MOD;
+                    ans +=    um[diff] % MOD;
+                    ans%=MOD;
                 }
             }
             ++um[del[i]];
