@@ -1,24 +1,25 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        if(nums.size() == 1) return 1;
+        vector<int>previousNotPresent;
         unordered_map<int,int>um;
-        int ans=0;
-        for(auto i : nums)  um[i]=1;
-        // cout<<um[-10]<<endl;
-        for(int i=0;i<nums.size();i++){
-            
-            int f = nums[i]-1;
-            // cout<<f<<" "<<nums[i]<<" "<<um[f]<<endl;
-            if(um[f] == 0 ){
-                // cout<<nums[i]<<" "<<f<<endl;
-                int p = nums[i];
-                // cout<<f<<" " <<nums[i]<<" "<<p<<" " <<p-nums[i]<<endl;
-                while(um[p] > 0)   ++p;
-                
-                ans= max(p-nums[i],ans);
-            }
+        int maxLen = 0 ;
+        for(auto i : nums){
+            ++um[i];
+            // previousNotPresent.push_back(i)
         }
-        return ans;
+        for(auto i : nums){
+            if(um.find(i-1) == um.end())
+            previousNotPresent.push_back(i);
+        }
+        for(auto k : previousNotPresent){
+            int temp = 0 , i=k ;
+            while( um.find(i) != um.end() ){
+                ++i;
+                ++temp;
+            }
+            maxLen = max(maxLen,temp);
+        }
+        return maxLen;
     }
 };
