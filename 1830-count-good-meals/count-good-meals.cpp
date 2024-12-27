@@ -1,49 +1,22 @@
 class Solution {
 public:
     int countPairs(vector<int>& del) {
-        int MOD = 1e9+7;
-        // cout<<MOD<<endl;
-        int ans = 0;
+        int MOD =1e9+7;
+        int  ans=0;
+        vector<int>powerOfTwo;
         unordered_map<int,int>um;
-        vector<int>powerOfTwoList ;
-        for(int i = 0 ; i <=21 ; i++){
-            int powerOfTwo = pow(2,i);
-            powerOfTwoList.push_back(powerOfTwo);
+        for(int i=0;i<22;i++){
+            powerOfTwo.push_back(pow(2,i));
         }
-
-        for(auto i :del){
-            for(int j=0;j<=21;j++){
-                int diff = powerOfTwoList[j] - i ;
-                if(um.find(diff) != um.end()){
-                    ans = (ans + um[diff]  ) % MOD;
+        for(int i=0;i<del.size();i++){
+            for(int j=0;j<23;j++){
+                int diff = powerOfTwo[j]-del[i];
+                if(um.find(diff) != um.end() ){
+                    ans =  (  ans + um[diff] )% MOD;
                 }
-                
             }
-            ++um[i];
+            ++um[del[i]];
         }
         return ans;
     }
 };
-
-// 4  - 100
-// 3  - 011
-
-//      000
-
-// [1,1,1,3,3,3,7]
-// 1 - 3 
-// 3 - 3 
-// 7 -1
-// [ 1 , 3 , 7 ]
-
-//  
-// 
-// 1 
-// 3
-// 5
-// 7
-// 9
-
-// [1,3,5,7,9]
-//  2,4,8,8,16
-//  1 ,1 ,3 ,1, 7
