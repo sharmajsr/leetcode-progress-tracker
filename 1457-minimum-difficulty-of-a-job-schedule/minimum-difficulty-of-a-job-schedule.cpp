@@ -30,8 +30,13 @@ public:
             Then find the optimal one among all the results
         */
         for (int i = idx; i <= n - d; i++) {
-            Max = max(Max, jobDifficulty[i]);
-            result = min(result, Max + solve(jobDifficulty, n, i + 1, d - 1));
+            // Max = max(Max, jobDifficulty[i]);
+            // result = min(result, Max + solve(jobDifficulty, n, i + 1, d - 1));
+
+            Max = max(Max,jobDifficulty[i]);
+            int fresult = Max + solve(jobDifficulty, n, i + 1, d - 1);
+            // cout<<idx<<" "<<d<<" "<<jd[i]<< " "<<result<<endl; 
+            result = min(result, fresult);
         }
         
         return t[idx][d] = result;
