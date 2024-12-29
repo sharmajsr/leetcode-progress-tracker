@@ -6,7 +6,12 @@ public:
         // If you have only 1 day, then you will do all the remaining jobs
         // and select the max difficulty as the answer
         if (d == 1) {
-            return *max_element(begin(jobDifficulty) + idx, end(jobDifficulty));
+            // return *max_element(begin(jobDifficulty) + idx, end(jobDifficulty));
+            int maxD = jobDifficulty[idx];
+            for(int i = idx ;i < n; i++){
+                maxD= max(maxD,jobDifficulty[i]);
+            }
+            return t[idx][d]=maxD;
         }
         
         if (t[idx][d] != -1)
