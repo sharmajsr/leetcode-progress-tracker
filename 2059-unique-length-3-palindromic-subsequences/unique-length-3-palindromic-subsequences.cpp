@@ -33,7 +33,7 @@ public:
             }
             ++leftFreq[s[i]-'a'];
         }
-        for(auto i :se )    cout<<i<<endl;
+        // for(auto i :se )    cout<<i<<endl;
         return se.size();
     }
 };
