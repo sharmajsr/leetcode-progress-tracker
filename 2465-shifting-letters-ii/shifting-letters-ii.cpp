@@ -1,45 +1,40 @@
 class Solution {
 public:
-    char fin(char let, int pos){
-        if(pos == 0) return let;
-        int sign = (pos > 0) ? 1 : -1 ;
-        int rem = sign * (abs(pos)%26);
-        int letIndex = let - 'a';
-        int finalPos = letIndex + rem;
-        finalPos %= 26;
-        if(finalPos >= 0) return 'a' + finalPos;
-        return 'z' + finalPos+1;
-
-    }
     string shiftingLetters(string s, vector<vector<int>>& shifts) {
-        int n = s.size();
-        string ans ;
-        vector<int>pos(n+1,0);
-        
-        
-
-
-        for(auto i:shifts){
-            int startIndex =i[0];
-            int endIndex = i[1];
-            int direction = i[2];
-            // for(int i=startIndex ; i <=endIndex;i++){
-            //     if(direction == 0){
-            //         pos[i] -=1;
-            //     }
-            //     else{
-            //         pos[i] +=1;
-            //     }
-            // }
-            pos[startIndex]  += (direction == 1) ? 1 : -1; 
-            pos[endIndex +1] -= (direction == 1) ? 1 : -1; 
+        vector<int>freq(s.size()+1,0);
+        string ans;
+        for(auto shift : shifts){
+            int start = shift[0];
+            int end = shift[1];
+            int dir = shift[2];
+            if( dir == 1){
+                ++freq[start];
+                --freq[end+1];
+            }
+            else{
+                --freq[start];
+                ++freq[end+1];
+            }
         }
-        int prefix = 0;
-        for(int i=0;i<n;i++){
-            prefix += pos[i];
-            cout<<s[i]<<" "<<pos[i]<<endl;
-            ans += fin(s[i],prefix);
-        }   
+        for(int i=1;i<s.size();i++){
+            freq[i] += freq[i-1];
+            freq[i] %= 26;
+        }
+        for(int i=0 ; i<s.size() ; i++){
+            
+            long long charInd = s[i]-'a' + freq[i];
+            bool negorPos = charInd>=0 ? true: false;
+            if(!negorPos)  {
+                int q = abs(charInd)/26;
+                int newD = q*26 +26;
+                charInd += newD;
+            }
+            int absChar = abs(charInd) ;
+            absChar %= 26;
+            // cout<<i<<" "<<s[i]<<" "<<charInd<<" "<<freq[i]<<" "<<char(absChar+'a')<<endl;
+            ans += char(absChar+'a');
+        }
         return ans;
+
     }
 };
