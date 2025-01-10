@@ -17,7 +17,7 @@ public:
             // cout<<endl;
         }
         for(auto i : words1 ){
-            cout<<i<<endl;
+            // cout<<i<<endl;
             bool isThisSubset = true;
             vector<int>w1freq(26,0);
             for(auto j : i ){
@@ -40,7 +40,7 @@ public:
             //     cout<<char(k+'a')<<" "<<w1freq[k]<<" "<<w2freq[k]<<endl;
             //     if(w2freq[k]>0) isThisSubset=false;
             // }
-            cout<<"isThisSubset "<<isThisSubset<<endl;
+            // cout<<"isThisSubset "<<isThisSubset<<endl;
             if(isThisSubset)    ans.push_back(i);
             
         }
