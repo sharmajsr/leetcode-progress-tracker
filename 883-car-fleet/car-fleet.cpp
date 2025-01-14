@@ -1,7 +1,8 @@
 class Solution {
 public:
     int carFleet(int target, vector<int>& position, vector<int>& speed) {
-        int n = position.size(),ans =0 ,currTimeTaken = 0 ;
+        int n = position.size(),ans =0 ;
+        double currTimeTaken = 0.0 ;
         vector<pair<int,int>>vp;
         for(int i= 0; i <n; i++){
             vp.push_back({position[i],speed[i]});
@@ -15,16 +16,16 @@ public:
             double tt = double(target-pos)/speed;
             // tt /= speed;
             int tt1 = tt;
-            // cout<<pos<<" "<<speed<<" "<<tt<<" "<<tt1<<" "<<currTimeTaken<<endl; 
-            if(st.empty()){
-                st.push(tt);
-            }
-            else if(st.top() < tt){
-                st.push(tt);
-                // ++ans;
+            // if(st.empty()){
+            //     st.push(tt);
+            // }
+            if(currTimeTaken < tt){
+                currTimeTaken = tt;
+                ++ans;
+                // st.push(tt);
             }
 
         }
-        return st.size();
+        return ans;
     }
 };
