@@ -1,48 +1,30 @@
 class Solution {
 public:
-    int solve(vector<int>& piles, int k){
-        long long int result = 0;
-        for(auto i : piles){
-            long long int div = i/k;
-            if(i%k == 0 ){
-                result += div;
-            }
-            else{
-                result += (div+1);
-            }
-            
-        }
-        return result;
-    }
     int minEatingSpeed(vector<int>& piles, int h) {
-        long long int maxElement = LONG_MIN;
-        long long int ans = LONG_MAX;
-        for(auto i : piles){
-            if(i > maxElement)
-            maxElement= i;
-        }
-        // for(int i = 1 ;i <= maxElement ; i++ ){
-        //     long long int calculatedHours = solve(piles,i);
-        //     if( h >= calculatedHours )
-        //         if( ans > i ) ans = i ;
-        //         // ans = min(ans,i);
-
-        // }
-        int i = 1 ;
-        int j = maxElement;
+        long long tsum = 0 , i= 1,j, min_ans = INT_MAX;
+        for(auto banana : piles ) tsum += banana;
+        j= tsum;
         while(i<=j){
-            int mid = ( i+j )/2;
-            
-            int calculatedHours = solve(piles,mid);
-            cout<<i <<" "<<j<<" "<<mid<<" "<<calculatedHours<<endl;
-            if( h>= calculatedHours && calculatedHours >0){
-                j= mid-1;
-                if( ans > mid ) ans = mid ;
+            long long mid = (i+j)/2;
+            int k= 0 , temp=0;
+            for(auto l : piles){
+                long long q = l/mid;
+                long long r = l%mid;
+                if(r>0) ++q;
+                temp+=q;
             }
-            else{
+           
+            if( temp <= h ){
+                min_ans = min(min_ans,mid);
+                j = mid-1;
+            }else if(temp > h){
                 i = mid+1;
             }
-        } 
-        return ans;
+            else{
+                j = mid-1;
+            }
+            // cout<<i<<" "<<mid<<" "<<j<<" "<<min_ans<<endl;
+        }
+        return min_ans;
     }
 };
