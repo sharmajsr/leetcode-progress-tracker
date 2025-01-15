@@ -1,43 +1,51 @@
 class MedianFinder {
 public:
-    priority_queue<int>maxHeap;
-    priority_queue<int,vector<int>,greater<int>>minHeap;
+    priority_queue<int>maxH;
+    priority_queue<int,vector<int>,greater<int>>minH;
     MedianFinder() {
-        maxHeap.empty();
-        minHeap.empty();
+        maxH.empty();
+        minH.empty();
     }
     
     void addNum(int num) {
-        if(maxHeap.size() == 0 ||  maxHeap.top() >= num){
-            maxHeap.push(num);
-        }else{
-            minHeap.push(num);
+        maxH.push(num);
+        // all elemets in maxH is less than all elements in minH
+        if(!maxH.empty() and !minH.empty() and minH.top() < maxH.top()){
+            minH.push(maxH.top());
+            maxH.pop();
         }
-
-        if(maxHeap.size() > minHeap.size() + 1){
-            // while(maxHeap.size() > minHeap.size() + 1){
-                minHeap.push(maxHeap.top());
-                maxHeap.pop();
-            // }
+        // cout<<maxH.size()<<" "<<minH.size()<<endl;
+        int diff1 = maxH.size()-minH.size();
+        int diff2 = minH.size()- maxH.size();
+        // should not have difference more than 1
+        if(diff1 > 1){
+            minH.push(maxH.top());
+            maxH.pop();
         }
-        else if(minHeap.size() > maxHeap.size() + 1){
-            // while(minHeap.size() > maxHeap.size() + 1){
-                maxHeap.push(minHeap.top());
-                minHeap.pop();
-            // }
+        else if( diff2 > 1){
+            maxH.push(minH.top());
+            minH.pop();
         }
+        // cout<<maxH.size()<<" .. "<<minH.size()<<endl;
+        // cout<<maxH.size()<<" "<<minH.size()<<" "<<maxH.top()<<" "<<minH.top()<<endl;
     }
     
     double findMedian() {
-
-        if(maxHeap.size() == minHeap.size()){
-            // cout<<maxHeap.top()<<" "<<minHeap.top()<<endl;
-            return (maxHeap.top() + minHeap.top())/2.0;
+        if(maxH.size() == minH.size()){
+            // cout<<"eq : " <<maxH.top()<< " "<<minH.top()<<endl; 
+            return double((maxH.top() + minH.top() ) * 0.5 ) ;
         }
-        else if(minHeap.size()> maxHeap.size()) return minHeap.top();
-        // cout<<"yha se "<<maxHeap.top()<<endl;
-        // if(minHeap.size()==0)   return maxHeap.top();
-        return maxHeap.top();
+        
+        else if(maxH.size() > minH.size()){
+            // cout<<"uneq : " <<maxH.top()<< " "<<minH.top()<<endl; 
+            return maxH.top();
+            
+        }
+        else{
+            // cout<<"uneq : " <<maxH.top()<< " "<<minH.top()<<endl; 
+            return minH.top();
+        }
+        // return 1;
     }
 };
 
