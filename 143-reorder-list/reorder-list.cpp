@@ -21,13 +21,6 @@ public:
         }
         return prev;
     }
-    void printLL(ListNode* head){
-        while(head){
-            cout<<head->val<<" ";
-            head =head->next;
-        }
-        cout<<endl;
-    }
     void reorderList(ListNode* head) {
         // 1. find middle of ll
         // 2. reverse the second part
@@ -46,18 +39,17 @@ public:
             head1 = head1->next;
         }
         prev->next = NULL;
-        printLL(head);
-        printLL(head1);
+        // printLL(head);
+        // printLL(head1);
         ListNode* reversedList = getReverseList(head1);
-        printLL(reversedList);
+        // printLL(reversedList);
         while(head and reversedList){
             ListNode* next1 = head->next;
             ListNode* next2 = reversedList->next;
-            cout<<head->val<<" "<<reversedList->val<<" ";
-            if(next1)   cout<<next1->val<<" ";
-            else if (next2)   cout<<next2->val<<" ";
-            cout<<endl;
-            // " "<<next1->val<<" "<<next2->val<<endl;
+            // cout<<head->val<<" "<<reversedList->val<<" ";
+            // if(next1)   cout<<next1->val<<" ";
+            // else if (next2)   cout<<next2->val<<" ";
+            // cout<<endl;
             reversedList->next = next1;
             head->next = reversedList;
             head= next1;
