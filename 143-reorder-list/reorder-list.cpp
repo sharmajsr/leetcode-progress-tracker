@@ -10,29 +10,64 @@
  */
 class Solution {
 public:
+    ListNode* getReverseList(ListNode* head){
+        ListNode* prev = NULL;
+        ListNode *next;
+        while(head){
+            next = head->next;
+            head->next = prev;
+            prev= head;
+            head =next;
+        }
+        return prev;
+    }
+    void printLL(ListNode* head){
+        while(head){
+            cout<<head->val<<" ";
+            head =head->next;
+        }
+        cout<<endl;
+    }
     void reorderList(ListNode* head) {
-        ListNode* newNode = head;
-        ListNode* node = head;
-        ListNode* duplicateNode = head;
-        while(node->next && node->next->next){
-            duplicateNode = duplicateNode->next;
-            node = node->next->next;
+        // 1. find middle of ll
+        // 2. reverse the second part
+        // 3. merge
+
+        ListNode* temp=head;
+        ListNode* prev;
+        ListNode* head1=head;
+        while(temp and temp->next){
+            prev = head1;
+            head1 = head1->next;
+            temp= temp->next->next;
         }
-        cout<<duplicateNode->val<<endl;
-        while(newNode->next && newNode->next->next){
-            ListNode* midNode = duplicateNode;
-            while(midNode->next && midNode->next->next){
-                midNode = midNode->next;
-            }
-            // cout<<"midnode - > "<<midNode->val<<endl;
-            ListNode* temp = newNode->next;
-            
-            newNode->next = midNode->next;
-            cout<<newNode->next->val<<endl;
-            // cout<<newNode->val<<" "<<newNode->next->val;//<<" "<<newNode->next->val<<endl;
-            newNode->next->next = temp;
-            newNode = newNode->next->next;
-            midNode->next = NULL;
+        if(temp){
+            prev =head1;
+            head1 = head1->next;
         }
+        prev->next = NULL;
+        printLL(head);
+        printLL(head1);
+        ListNode* reversedList = getReverseList(head1);
+        printLL(reversedList);
+        while(head and reversedList){
+            ListNode* next1 = head->next;
+            ListNode* next2 = reversedList->next;
+            cout<<head->val<<" "<<reversedList->val<<" ";
+            if(next1)   cout<<next1->val<<" ";
+            else if (next2)   cout<<next2->val<<" ";
+            cout<<endl;
+            // " "<<next1->val<<" "<<next2->val<<endl;
+            reversedList->next = next1;
+            head->next = reversedList;
+            head= next1;
+            reversedList = next2;
+        }
+        // if(reversedList !=NULL ){
+        //     cout<<"reverse : "<<reversedList->val<<endl;
+        //     head->next = reversedList;
+        //     reversedList->next= NULL;
+        // }
+        
     }
 };
