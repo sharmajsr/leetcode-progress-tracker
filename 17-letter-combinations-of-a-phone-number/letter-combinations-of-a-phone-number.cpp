@@ -1,27 +1,22 @@
 class Solution {
 public:
-    void solve(string ip,string op,vector<string>&ans,string mappings[]){
-        if(ip.size() == 0){
-            ans.push_back(op);
-            return ;
+    void solve(string digits,vector<string>&op,string curr){
+        if(digits.size() == 0 ){
+            op.push_back(curr);
+            return;
         }
-        int curDigit = ip[0]-'2';
-        string curMappedItems = mappings[curDigit];
-        ip.erase(ip.begin());
-        for(int i=0;i<curMappedItems.size();i++){
-            solve(ip,op+curMappedItems[i],ans,mappings);
+        string letters[] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        int currDigit = digits[0]-'0';
+        digits.erase(digits.begin());
+        string currDigitLetters = letters[currDigit];
+        for(auto i : currDigitLetters){
+            solve(digits,op,curr+i);
         }
-
     }
     vector<string> letterCombinations(string digits) {
-        if(digits.size() == 0 ) return {};
-        string mappings[]={ "abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        string cur;
+        if(digits == "")    return {};
         vector<string>ans;
-        solve(digits,cur,ans,mappings);
-        // for(auto i : ans){
-        //     cout<<i<<endl;
-        // }
+        solve(digits,ans,"");
         return ans;
     }
 };
