@@ -11,7 +11,6 @@ public:
         }else{
             int n1 = temp[temp.size()/2];
             int n2 = temp[(temp.size()/2)-1];
-            cout<<n1<<" "<<n2<<endl;
             ans = double( (n1+n2) * double(0.5) );
         }
         return ans;
