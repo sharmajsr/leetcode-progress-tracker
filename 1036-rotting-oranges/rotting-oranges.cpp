@@ -1,60 +1,54 @@
 class Solution {
 public:
-    // void rotAdjacentOranges(vector<vector<int>>& grid,int p,int q,int &numberOfMinutes){
-    //     queue<int>q;
-    // }
     int orangesRotting(vector<vector<int>>& grid) {
-        int numberOfMinutes = 0 ,cz= 0 ,co = 0;
+        
         queue<pair<int,int>>q;
         int rows[] = {0,0,1,-1};
-        int cols[]= {1,-1,0,0};
-        for(int i=0; i <grid.size(); i++){
-            for(int j=0;j<grid[0].size();j++){
-                if(grid[i][j] == 2 ){
+        int cols[] = {1,-1,0,0};
+        int n = grid.size(), m = grid[0].size(),ans = 0,zc = 0;
+        // if(n == 1 and m == 1 and grid[0][0] == 0  ) return 0;
+        // if(n == 1 and m == 1 and grid[0][0] == 2  ) return 0;
+        // if(n == 0 and m== 0 and grid[0][0] = 0 or grid[0][0] ==1 ) return -1;
+        for(int i=0; i<n ;i++){
+            for(int j= 0; j< m;j++ ){
+                if(grid[i][j] == 2){
                     q.push({i,j});
                 }
-                else if(grid[i][j] == 0 ){
-                    ++cz;
-                }
-                else if(grid[i][j] == 1){
-                    ++co;
+                if(grid[i][j] == 0 ){
+                    ++zc;
                 }
             }
         }
-        if(q.empty() and co > 0 )   return -1;
-        else if(q.empty() ) return 0;
-        
+        if(n*m ==zc) return 0;
         while(!q.empty()){
+            // auto top = q.front();
             queue<pair<int,int>>qu;
+            ++ans;
             while(!q.empty()){
                 auto top = q.front();
                 q.pop();
-                // cout<<top.first<<" "<<top.second<<" "<<numberOfMinutes<<endl;
+                int p1 = top.first;
+                int q1 = top.second;
                 for(int i=0;i<4;i++){
-                    int nRow = rows[i] + top.first;
-                    int nCol = cols[i] + top.second;
-                    if(nRow >= 0 and nRow < grid.size() 
-                    and nCol >=0 and nCol <grid[0].size() && 
-                    grid[nRow][nCol] == 1 
-                    ){
-                        grid[nRow][nCol] = 2;
-                        qu.push({nRow,nCol});
+                    int nrow = rows[i] + p1;
+                    int ncol = cols[i] + q1; 
+                    if( nrow>=0 and ncol>=0 and nrow<n and ncol<m and grid[nrow][ncol] == 1 ){
+                        grid[nrow][ncol] = 2;
+                        qu.push({nrow,ncol});
                     }
-
                 }
-
             }
-            ++numberOfMinutes;
             q=qu;
         }
-         for(int i=0; i <grid.size(); i++){
-            for(int j=0;j<grid[0].size();j++){
+        cout<<"n and m"<<n<<" "<<m<<endl;
+         for(int i=0; i<n ;i++){
+            for(int j= 0; j< m;j++ ){
+                cout<<grid[i][j]<<" ";
                 if(grid[i][j] == 1){
-                    // ++numberOfMinutes;
-                   return -1;
+                    return -1;
                 }
-            }
+            }cout<<endl;
         }
-        return numberOfMinutes-1;
+        return ans-1;
     }
 };
