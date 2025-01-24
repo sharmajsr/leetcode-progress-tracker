@@ -18,7 +18,7 @@ public:
             if(graph[i].size() == 0){
                 q.push(i);
                 
-                cout<<"Terminal nodes : "<<i<<endl;
+                // cout<<"Terminal nodes : "<<i<<endl;
             }
         }
         
