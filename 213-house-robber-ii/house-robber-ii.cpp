@@ -1,30 +1,25 @@
 class Solution {
 public:
-    int solve(vector<int>nums , int n , vector<int>&dp){
-        if( n == 0 )    return dp[n] = nums[0];
-        if (n<0)    return 0;
-
-        if (dp[n] != -1)    return dp[n];
-        int curr = nums[n] + solve(nums,n-2,dp);
-        int prev =solve(nums,n-1,dp);
-
-        return dp[n] = max(curr,prev);
+    int solve(vector<int>&nums){
+        int n = nums.size();
+        vector<int>dp(nums.size(),-1);
+        dp[0] = nums[0];
+        for(int i=1 ;i < n ; i++){
+            int pick = nums[i] ;
+            if(i>1) pick += dp[i-2];
+            int not_pick = dp[i-1];
+            dp[i] = max(pick,not_pick);
+        }
+        return dp[n-1];
     }
     int rob(vector<int>& nums) {
-        if(nums.size() == 1)    return  nums[0];
-        vector<int>nums1 ,nums2;
-
-        int n = nums.size();
-
-        for(int i=0;i<n-1;i++){
+        if(nums.size() == 1)    return nums[0];
+        vector<int>nums2,nums1;
+        for(int i=0;i<nums.size()-1;i++){
             nums1.push_back(nums[i]);
             nums2.push_back(nums[i+1]);
         }
-        vector<int>dp(n-1,-1);
-        vector<int>dp1(n-1,-1);
-
-        solve(nums1,n-2,dp);
-        solve(nums2,n-2,dp1);
-        return max(dp[n-2],dp1[n-2]);
+        return max(solve(nums1),solve(nums2));
+        // nums.erase(nums.begin()+nums.size()-1);
     }
 };
