@@ -1,49 +1,29 @@
 class MinStack {
 public:
-stack<pair<int,int>>s1;
-stack<pair<int,int>>s2;
-    MinStack() {
-        s1.empty();
-        s2.empty();
+stack<int>st1,st2;
+    MinStack() {    
+        st1.empty();
+        st1.empty();
     }
     
     void push(int val) {
-        if(s1.empty()) {
-            s1.push({val,s1.size()});
-            s2.push({val,s1.size()});
-        }else if (!s2.empty() and s2.top().first > val ){
-            s1.push({val,s1.size()});
-            s2.push({val,s1.size()});
-        }else if(!s2.empty() and s2.top().first <= val){
-            s1.push({val,s1.size()});
-            s2.push({s2.top().first,s2.top().second});
-        }
-        // else{
-            // s1.push({val,s1.size()});
-            // s2.push({s1.top().first,s1.top().second});
-            // if(!s2.empty()) s2.push({ s2.top().first, s2.top().second});
-            // else s2.push({val,s1.size()});
-            // if(s1.top().first <=val){
-            //     s2.push({val,s1.size()});
-            // }
-        // }
+        st1.push(val);
+        if(!st2.empty())    st2.push(st2.top() > val ? val : st2.top());
+        else st2.push(val);
     }
     
     void pop() {
-        // if(s1.top().second == s2.top().second){
-            s1.pop();
-            s2.pop();
-        // }else{
-        //     s1.pop();
-        // }
+        st1.pop();
+        st2.pop();
     }
     
     int top() {
-        return s1.top().first;
+
+        return st1.top();
     }
     
     int getMin() {
-        return s2.top().first;
+        return st2.top();
     }
 };
 
