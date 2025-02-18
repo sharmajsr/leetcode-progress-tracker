@@ -1,19 +1,16 @@
 class Solution {
 public:
-    void solve(int posn,int negn,string curr,vector<string>&output){
-        if(posn == 0 and negn == 0 ){
-            output.push_back(curr);
+    void solve(int pos,int neg,vector<string>&ans,string op,int n ){
+        if(op.size() == n*2){
+            ans.push_back(op);
             return;
         }
-        if(posn>0) solve(posn-1,negn+1,curr+"(",output);
-        if(negn > 0 ) solve(posn,negn-1,curr+")",output);
+        if(pos>0)   solve(pos-1,neg+1,ans,op+"(",n);
+        if(neg>0)   solve(pos,neg-1,ans,op+")",n);
     }
     vector<string> generateParenthesis(int n) {
-        int posn = n ;
-        int negn = 0 ;
         vector<string>ans;
-        solve(posn,negn,"",ans);
+        solve(n,0,ans,"",n);
         return ans;
-
     }
 };
