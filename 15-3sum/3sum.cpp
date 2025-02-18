@@ -2,41 +2,40 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(),nums.end());
-        vector<vector<int>>ans;
-        set<vector<int>>se;
+        set<vector<int>>ans;
+        vector<vector<int>> fans;
         int n = nums.size();
-        for(int i=0;i<n;i++){
-            int j=  i+1 ;
-            int k = n-1 ;
+        for(int i =0 ; i < n-2 ;i++){
+            int j = i+1;
+            int k = n-1;
             while(j<k){
                 int sum = nums[i] + nums[j] + nums[k];
-                // cout<<nums[i]<<" "<<nums[j]<<" " <<nums[k]<<" " <<sum<<endl;
+                // cout<<nums[i]<<" "<<nums[j]<<" "<<nums[k]<<" "<<sum<<endl;
                 if(sum == 0){
-                    vector<int>cur;
-                    cur.push_back(nums[i]);
-                    cur.push_back(nums[j]);
-                    cur.push_back(nums[k]);
-                    se.insert(cur);
-                    
-                    while(j<k && nums[j] == nums[j+1] )
-                        ++j;
-                    while( j<k && nums[k] == nums[k-1])
-                        --k;
+                    vector<int>temp;
+                    temp.push_back(nums[i]);
+                    temp.push_back(nums[j]);
+                    temp.push_back(nums[k]);
+                    ans.insert(temp);
+                    while(j<k and nums[j] == nums[j+1])    j++;
+                    while(j<k and nums[k] == nums[k-1])    k--;
                     ++j;
                     --k;
-                }
-                else if(sum>0){
+                    // cout<<j<<" "<<k<<endl;
+                    
+                }else if(sum >0){
                     --k;
-                }
-                else{
+                }else{
                     ++j;
                 }
             }
-            // ++i;
         }
-        for(auto i :se){
-            ans.push_back(i);
+        for(auto i : ans){
+            fans.push_back(i);
         }
-        return ans;
+        return fans;
     }
 };
+
+// [-1,0,1,2,-1,-4]
+// [-4 , -1 ,-1 ,0 , 1, 2]
