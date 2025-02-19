@@ -5,14 +5,20 @@ public:
         for(auto i : stones){
             maxHeap.push(i);
         }
-        while(maxHeap.size() > 1){
-            int firstHeaviest = maxHeap.top();
-            maxHeap.pop();
-            int secondHeaviest = maxHeap.top();
-            maxHeap.pop();
-            int diff = abs(firstHeaviest - secondHeaviest);
-            maxHeap.push(diff);
+        while(!maxHeap.empty()){
+            if(maxHeap.size() == 1) break;
+            int x = maxHeap.top(); maxHeap.pop();
+            int y = maxHeap.top(); maxHeap.pop();
+            if( x == y){
+                continue;
+            }else{
+                if(x> y) {
+                    maxHeap.push(x-y);
+                }else{
+                    maxHeap.push(y-x);
+                }
+            }
         }
-        return maxHeap.top();
+        return maxHeap.size() == 0 ? 0 : maxHeap.top();
     }
 };
