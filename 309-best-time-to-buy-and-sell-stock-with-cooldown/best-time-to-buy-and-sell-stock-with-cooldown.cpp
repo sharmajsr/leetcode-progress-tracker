@@ -6,7 +6,7 @@ public:
         if(buy){
             return dp[idx][buy]= max(-prices[idx] + solve(prices,idx+1,0,cooldown,dp),solve(prices,idx+1,1,cooldown,dp));
         }else{
-            return dp[idx][buy]= max(prices[idx] + solve(prices,idx+1+1,1,cooldown,dp),solve(prices,idx+1,0,cooldown,dp));
+            return dp[idx][buy]= max(prices[idx] + solve(prices,idx+1+cooldown,1,cooldown,dp),solve(prices,idx+1,0,cooldown,dp));
         }
     }
     int maxProfit(vector<int>& prices) {
