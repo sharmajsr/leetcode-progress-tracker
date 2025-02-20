@@ -1,22 +1,20 @@
 class Solution {
 public:
-    int maxProfit(vector<int>& a) {
-        int ans = 0, n= a.size() , i = 0,firstTransaction;
-        vector<int>leftMaxArray(n,0);
-        int mini = a[0];
-        int maxi = a[n-1];
-        vector<int>rightMaxArray(n,0);
-        for(int i = 1 ; i < n ; i++){
-            leftMaxArray[i] = max( leftMaxArray[i-1], (a[i]-mini));
-            mini = min(mini,a[i]);
+    int solve(vector<int>&prices,int idx,int buy,int cap,vector<vector<vector<int>>>&dp){
+        if(cap == 0 or idx == prices.size() ) return 0;
+        int profit = 0;
+        if(dp[idx][buy][cap] != -1) return dp[idx][buy][cap];
+        if(buy){
+            profit =  max(-prices[idx]+solve(prices,idx+1,0,cap,dp),solve(prices,idx+1,1,cap,dp));
+        }else{
+            profit =  max(prices[idx] + solve(prices,idx+1,1,cap-1,dp),solve(prices,idx+1,0,cap,dp));
         }
-        for(int i = n-2 ; i >= 0  ; i--){
-            rightMaxArray[i] = max(rightMaxArray[i+1], (maxi-a[i]));
-            maxi = max(maxi,a[i]);
-        }
-        for(int i=0;i<n;i++){
-            ans = max(ans, leftMaxArray[i] + rightMaxArray[i]);
-        }
-        return ans;
+        return dp[idx][buy][cap] = profit;
+    }
+
+    int maxProfit(vector<int>& prices) {
+        vector<vector<vector<int>>>dp(prices.size(),vector<vector<int>>(2,vector<int>(3,-1)));
+        solve(prices,0,1,2,dp);
+        return dp[0][1][2];
     }
 };
