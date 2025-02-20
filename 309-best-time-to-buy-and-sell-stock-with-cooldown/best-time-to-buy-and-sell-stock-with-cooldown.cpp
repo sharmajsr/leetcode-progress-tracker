@@ -10,8 +10,22 @@ public:
         }
     }
     int maxProfit(vector<int>& prices) {
-        vector<vector<int>>dp(prices.size()+1,vector<int>(2,-1));
-        solve(prices,0,1,1,dp);
+        int n = prices.size();
+        vector<vector<int>>dp(prices.size()+1,vector<int>(2,0));
+        // solve(prices,0,1,1,dp);
+        for(int i=n-1;i>=0;i--){
+            for(int j=1;j>=0;j--){
+                if( j == 1 ){
+                    dp[i][j]= max( -prices[i] + dp[i+1][0], dp[i+1][1]);
+                }else{
+                    int s1 = prices[i] ;
+                    if(i+2 < n){
+                        s1 += dp[i+2][1];
+                    }
+                    dp[i][j] = max( s1 , dp[i+1][0]);
+                }
+            }
+        }
         return dp[0][1];
     }
 };
