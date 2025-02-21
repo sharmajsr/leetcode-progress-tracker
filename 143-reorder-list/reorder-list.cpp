@@ -10,56 +10,52 @@
  */
 class Solution {
 public:
-    ListNode* getReverseList(ListNode* head){
+    ListNode* rever(ListNode* head){
         ListNode* prev = NULL;
-        ListNode *next;
-        while(head){
+        ListNode* next = head;
+        while(head!=NULL){
             next = head->next;
-            head->next = prev;
+            head->next= prev;
             prev= head;
-            head =next;
+            head = next;
         }
         return prev;
     }
+    void printList(ListNode* head){
+        cout<<"Inside printList function\n";
+        while(head){
+            cout<<head->val<<" ";
+            head =head->next;
+        }
+    }
     void reorderList(ListNode* head) {
-        // 1. find middle of ll
-        // 2. reverse the second part
-        // 3. merge
-
-        ListNode* temp=head;
-        ListNode* prev;
-        ListNode* head1=head;
-        while(temp and temp->next){
-            prev = head1;
-            head1 = head1->next;
-            temp= temp->next->next;
-        }
-        if(temp){
-            prev =head1;
-            head1 = head1->next;
-        }
-        prev->next = NULL;
-        // printLL(head);
-        // printLL(head1);
-        ListNode* reversedList = getReverseList(head1);
-        // printLL(reversedList);
-        while(head and reversedList){
-            ListNode* next1 = head->next;
-            ListNode* next2 = reversedList->next;
-            // cout<<head->val<<" "<<reversedList->val<<" ";
-            // if(next1)   cout<<next1->val<<" ";
-            // else if (next2)   cout<<next2->val<<" ";
-            // cout<<endl;
-            reversedList->next = next1;
-            head->next = reversedList;
-            head= next1;
-            reversedList = next2;
-        }
-        // if(reversedList !=NULL ){
-        //     cout<<"reverse : "<<reversedList->val<<endl;
-        //     head->next = reversedList;
-        //     reversedList->next= NULL;
-        // }
         
+        ListNode* dummyNode = new ListNode();
+        dummyNode->next= head;
+        ListNode* prevSlow ;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(slow and fast and fast->next){
+            prevSlow = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        if(fast!=NULL){
+            prevSlow = slow;
+            slow = slow->next;
+        }
+        prevSlow->next = NULL;
+        ListNode* midPoint = rever(slow);
+        // printList(midPoint);
+        while(head && midPoint){
+            ListNode* midPointNext = midPoint->next;
+            midPoint->next = head->next;
+            head->next = midPoint;
+            head=head->next->next;
+            midPoint = midPointNext;
+        }
+        // while
+
+        // return dummyNode->next;
     }
 };
