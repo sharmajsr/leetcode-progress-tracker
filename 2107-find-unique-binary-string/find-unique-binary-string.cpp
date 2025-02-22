@@ -1,6 +1,7 @@
 class Solution {
 public:
-    void solve(int idx,string op,unordered_map<string,int>um,string &ans,int n){
+    void solve(string op,unordered_map<string,int>um,string &ans,int n){
+        int idx = op.size();
         if(idx == n){
             if(um.find(op) == um.end()){
                 ans = op;
@@ -8,16 +9,16 @@ public:
             return;
         }
         
-        solve(idx+1,op+'0',um,ans,n);
+        solve(op+'0',um,ans,n);
         if(ans != "")   return;
-        solve(idx+1,op+'1',um,ans,n);
+        solve(op+'1',um,ans,n);
         
     }
     string findDifferentBinaryString(vector<string>& nums) {
         unordered_map<string,int>um;
         for(auto i : nums)  ++um[i];
         string ans;
-        solve(0,"",um,ans,nums[0].size());
+        solve("",um,ans,nums[0].size());
         return ans;
     }
 };
