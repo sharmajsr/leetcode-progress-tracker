@@ -8,7 +8,8 @@ public:
         vector<int>op1 = op;
         vector<int>op2 = op;
         op1.push_back(nums[nums.size()-1]);
-        nums.pop_back();
+        // nums.pop_back();
+        nums.erase(nums.end());
         solve(ans,op1,nums);
         solve(ans,op2,nums);
     }
