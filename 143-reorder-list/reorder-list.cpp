@@ -12,50 +12,50 @@ class Solution {
 public:
     ListNode* rever(ListNode* head){
         ListNode* prev = NULL;
-        ListNode* next = head;
-        while(head!=NULL){
+        ListNode* next;
+        while(head){
             next = head->next;
-            head->next= prev;
-            prev= head;
+            head->next = prev;
+            prev = head;
             head = next;
         }
         return prev;
     }
-    void printList(ListNode* head){
-        cout<<"Inside printList function\n";
+    void prin(ListNode* head){
         while(head){
             cout<<head->val<<" ";
-            head =head->next;
+            head = head->next;
         }
+
     }
     void reorderList(ListNode* head) {
-        
-        ListNode* dummyNode = new ListNode();
-        dummyNode->next= head;
-        ListNode* prevSlow ;
-        ListNode* slow = head;
-        ListNode* fast = head;
+        ListNode* slow , *fast , *next ,  *prev;
+        slow = head;
+        fast = head ;
         while(slow and fast and fast->next){
-            prevSlow = slow;
+            prev =slow;
             slow = slow->next;
             fast = fast->next->next;
         }
         if(fast!=NULL){
-            prevSlow = slow;
+            prev = slow;
             slow = slow->next;
         }
-        prevSlow->next = NULL;
-        ListNode* midPoint = rever(slow);
-        // printList(midPoint);
-        while(head && midPoint){
+
+        cout<<"prev val : " <<prev->val<<endl;
+        prev->next = NULL;
+        ListNode* midPoint= rever(slow);
+        // prin(midPoint);
+
+        ListNode* dummyNode = new ListNode(0);
+        dummyNode->next =head;
+       while(head && midPoint){
             ListNode* midPointNext = midPoint->next;
             midPoint->next = head->next;
             head->next = midPoint;
             head=head->next->next;
             midPoint = midPointNext;
         }
-        // while
-
-        // return dummyNode->next;
+        return ;
     }
 };
