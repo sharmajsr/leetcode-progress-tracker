@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> partitionLabels(string s) {
-        vector<char>alt,alt1;
+        // vector<char>alt,alt1;
         vector<int>ans;
         int start = 0 ;
         unordered_map<char,int>um;
@@ -17,7 +17,7 @@ public:
             if(isValid){
                 ans.push_back(i-start+1);
                 start = i+1 ;
-                temp.clear();
+                // temp.clear();
             }
         }
         return ans;
