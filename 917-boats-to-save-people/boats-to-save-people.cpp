@@ -6,16 +6,11 @@ public:
         sort(people.begin(),people.end());
         while(i<=j){
             int sum = people[i] + people[j];
-            if(sum > limit){
-                // cout<<"Greater "<<sum<<endl;
-                ++ans;
-                --j;
-            }else{
-                // cout<<"LTE "<<sum<<endl;
-                ++ans;
+            if(sum <= limit){
                 ++i;
-                --j;
             }
+            --j;
+            ++ans;
         }
         return ans;
     }
