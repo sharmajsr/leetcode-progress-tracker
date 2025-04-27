@@ -12,7 +12,7 @@ public:
         }
         for(int i = n-2 ; i >= 0 ; i-- ){
             rMax[i] = max(rMax[i+1],height[i]);
-            cout<<i<<" "<<rMax[i]<<endl;
+            
         }
         while(left<=right){
             int dis = right- left;
