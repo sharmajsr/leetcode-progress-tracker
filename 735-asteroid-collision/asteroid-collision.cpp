@@ -1,55 +1,44 @@
 class Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) {
-        stack<int>st;
-        vector<int>ans;
-        for(auto i:asteroids){
+        stack<int> st;
+        vector<int> v;
+        for(auto i : asteroids){
             if(st.empty()){
                 st.push(i);
             }
-            else if(st.top()> 0 and i>0 ){
-                st.push(i);
-            }
-            else if(st.top()< 0 and i<0 ){
-                st.push(i);
-            }
-            else if (st.top()<0 && i >0 ){
-                st.push(i);
-            }else{  //st.top > 0 and i<0
-                int  j = -1 *i;
-                int flag = false;
-                while(!st.empty()){
+            else if(!st.empty() and st.top() > 0 and i<0 ){
+                int val = i;
+                bool isSame = true;
+                while(!st.empty() and st.top() * i < 0 ){
                     int top = st.top();
-                    if(top < 0 ){
-                        flag = true;
-                        break;
-                    }
+                    cout<<top<<" "<<i<<endl;
                     st.pop();
-                    if(j < top ){
-                        flag = false;
+                    if(abs(i) == abs(top)){
+                        isSame = false;
+                        break;
+                    }else if(abs(top) > abs(i)){
                         st.push(top);
                         break;
-                    }
-                    else if(j == top){
-                        flag = false;
-                        break;
-                    }
-                    else{
-                        flag = true;
+                    }else{
+                        continue;
                     }
                 }
-                if(flag == true){
-                    st.push(i);
-                }
+                if(isSame){
+                    if(st.empty())  st.push(i);
+                    else if(!st.empty() and st.top() < 0 )    st.push(i);
+                } 
+                
+            }else {
+                 st.push(i);
             }
-
+            
         }
-        while(!st.empty()){
-            ans.push_back(st.top());
-            st.pop();
-        }
-        reverse(ans.begin(),ans.end());
-        return ans;
         
+        while(!st.empty()){
+            v.push_back(st.top());st.pop();
+        }
+        reverse(v.begin(),v.end());
+        return v;
     }
 };
