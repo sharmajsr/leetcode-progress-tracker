@@ -23,7 +23,7 @@ public:
                 cur += path[i];
             }
         }
-        cout<<"after for : "<<cur<<endl;
+        // cout<<"after for : "<<cur<<endl;
         if(cur == ".."){
             if(!st.empty()) st.pop();
         }else if(cur==""){}
@@ -39,11 +39,6 @@ public:
             st.pop();
         }
         while(!st1.empty()){
-            // if(st.top() == "" or st.top() == " "){
-            //     st.pop();
-            //     continue;
-            // } 
-            cout<<st1.top()<<endl;
             ans += "/" + st1.top() ;
             st1.pop();
         }
