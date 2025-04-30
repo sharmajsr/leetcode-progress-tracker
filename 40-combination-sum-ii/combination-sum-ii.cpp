@@ -1,31 +1,31 @@
 class Solution {
 public:
-    void solve(vector<int>op,int target,vector<int>& candidates,vector<vector<int>>&ans,int idx){
-         
-        if(target == 0){
-            ans.push_back(op);
-            return;
-        }
-
-        for(int i = idx ; i < candidates.size() ; i++){
-            if( i > idx and candidates[i] == candidates[i-1] ) continue;
-
-            if( candidates[i] > target ) break;
-
-            op.push_back(candidates[i]);
-            solve(op,target-candidates[i],candidates,ans,i+1);
-            op.pop_back();
-            
+void solve(int target,int idx,vector<int>&candidates,set<vector<int>> &ans,vector<int>cur){
+    if(target == 0 ){
+        ans.insert(cur);
+        return;
+    }
+    if(idx > candidates.size() ){
+        return;
+    }
+    for(int i= idx ; i<candidates.size() ; i++){
+        if( i > idx and candidates[i] == candidates[i-1] ) continue;
+        
+        if(target >= candidates[i]){
+            cur.push_back(candidates[i]);
+            solve(target-candidates[i],i+1,candidates,ans,cur);
+            cur.pop_back();
         }
     }
+}
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        sort(candidates.begin(),candidates.end());
+        set<vector<int>>ans;
         vector<vector<int>>ans1;
-
-        vector<int>op;
-        
-        solve(op,target,candidates,ans1,0);
-
+        sort(candidates.begin(),candidates.end());
+        solve(target,0,candidates,ans,{});
+        for(auto i : ans){
+            ans1.push_back(i);
+        }
         return ans1;
     }
 };
