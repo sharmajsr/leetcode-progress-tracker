@@ -1,27 +1,25 @@
 class Solution {
 public:
-    void solve(vector<int>nums, set<vector<int>>&se, vector<int>op){
-        if(nums.size() == 0 ) {
-            sort(op.begin(),op.end());
-            se.insert(op);
+    void solve(vector<int>nums,vector<int>cur,set<vector<int>> &ans){
+        if(nums.size() == 0 ){
+            ans.insert(cur);
             return;
         }
-        vector<int>op1 = op;
-        vector<int>op2 =op;
-        op2.push_back(nums[nums.size()-1]);
-        nums.pop_back();
-        // cout<<nums.size()<<" " <<op1.size()<<" "<<op2.size()<<endl;
-        solve(nums,se,op1);
-        solve(nums,se,op2);
+        vector<int>op1 = cur,op2 =cur;
+        op1.push_back(nums[0]);
+        nums.erase(nums.begin());
+        solve(nums,op1,ans);
+        solve(nums,op2,ans);
     }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        vector<vector<int>>ans;
-        set<vector<int>>se;
-        vector<int>op;
-        solve(nums,se,op);
-        for(auto i : se){
-            ans.push_back(i);
+        sort(nums.begin(),nums.end());
+        set<vector<int>> ans;
+        vector<vector<int>>ans1;
+        solve(nums,{},ans);
+        for(auto i :ans){
+            ans1.push_back(i);
         }
-        return ans;
+        return ans1;
+
     }
 };
