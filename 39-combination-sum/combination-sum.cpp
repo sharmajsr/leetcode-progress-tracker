@@ -1,21 +1,28 @@
 class Solution {
 public:
-    void solve(vector<vector<int>>&ans,vector<int>op,int target, vector<int>&nums,int idx){
-        if(target == 0 ){
-            ans.push_back(op);
-            return ;
+    void solve(vector<int>cur, int target, set<vector<int>>&ans,vector<int>& candidates,int idx){
+        if( target == 0 ){
+            ans.insert(cur);
+            return;
         }
-        
-        if( target < 0 or idx >= nums.size() ) return ;
-        cout<<idx<<endl;
-        solve(ans,op,target,nums,idx+1);
-        op.push_back(nums[idx]);
-        solve(ans,op,target-nums[idx],nums,idx);
+        if(idx >= candidates.size() ){
+            return;
+        }
+        solve(cur,target,ans,candidates,idx+1);
+        // cout<<idx<<" "<<target<<endl;
+        if(target >= candidates[idx] ){
+            cur.push_back(candidates[idx]);
+            solve(cur,target-candidates[idx],ans,candidates,idx);
+            solve(cur,target-candidates[idx],ans,candidates,idx+1);
+        }
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>>ans;
-        solve(ans,{},target,candidates,0);
-        return ans;
-
+        set<vector<int>> ans;
+        vector<vector<int>>ans1;
+        solve({},target,ans,candidates,0);
+        for(auto i : ans){
+            ans1.push_back(i);
+        }
+        return ans1;
     }
 };
