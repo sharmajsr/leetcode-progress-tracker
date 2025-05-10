@@ -6,7 +6,7 @@ public:
         while(j<n){
             
             if(nums[j] == 1){
-                cout<<"if1 : "<<i<<" "<<j<<" "<<k<<" "<<ans<<endl;
+                // cout<<"if1 : "<<i<<" "<<j<<" "<<k<<" "<<ans<<endl;
                 ans = max(ans, j-i +1);
                 ++j;
                 // if( j == n ){
