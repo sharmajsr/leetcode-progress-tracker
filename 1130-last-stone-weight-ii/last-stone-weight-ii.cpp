@@ -1,36 +1,38 @@
 class Solution {
 public:
     int lastStoneWeightII(vector<int>& stones) {
-        if(stones.size() ==1 )  return stones[0];
-        int n = stones.size(),tsum = 0 ,ans = INT_MAX;
-        for(auto i : stones)    tsum +=i;
+        if(stones.size() == 1)  return stones[0];
+        int tsum = 0 , n = stones.size();
+        for(auto i : stones)    tsum += i;
         int hsum = tsum/2;
+        int ans = INT_MAX;
         vector<vector<int>>dp(n+1,vector<int>(hsum+1,0));
-        // int dp[n+1][hsum+1];
-        for(int i=0;i<=n;i++)   dp[i][0]=1;
+        for(int i= 0 ; i < n; i++){
+            dp[i][0]=1;
+        }
 
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=hsum;j++){
-                if(j>= stones[i-1]){
-                    dp[i][j] = dp[i-1][j] or dp[i-1][j-stones[i-1]];
+        for(int i= 1 ; i <= n; i++){
+            for(int j= 1; j<=hsum ;j++){
+                if(j>=stones[i-1]){
+                    dp[i][j] =dp[i-1][j-stones[i-1]] or dp[i-1][j];
                 }else{
-                    dp[i][j]=dp[i-1][j];
+                    dp[i][j] = dp[i-1][j];
                 }
+                // cout<<dp[i][j]<<" ";
+            }
+            // cout<<endl;
+        }
+
+           
+        for(int j= 0; j<=hsum ;j++){
+            // cout<<dp[n][j]<<" "; 
+            if(dp[n][j] == 1 ){
+                int temp = tsum - j * 2;
+                ans= min(ans,tsum-2*j);
             }
         }
 
-        cout<<tsum<<endl;
-        for(int i=1;i<=hsum;i++){
-            // cout<<dp[n][i]<<" ";
-            if(dp[n][i] == 1 ){
-                // cout<<i<<" ";
-                int s1 = i;
-                int s2 = tsum - s1;
-
-                int diff = s1 > s2 ? s1-s2 : s2-s1;
-                ans = min( ans , diff );
-            }
-        }
         return ans;
+
     }
 };
