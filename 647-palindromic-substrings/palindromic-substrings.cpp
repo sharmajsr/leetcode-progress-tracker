@@ -1,32 +1,21 @@
+// using the odd and even method for counting palindrom,  take and idx and go out and icrease count
+// 
 class Solution {
 public:
-// int solve(string s,int idx1,int idx2){
-//     if(idx1 > idx2){
-//         return 0;
-//     }
-//     if(idx1 == idx2)    return 1;
-    
-// }
-    bool checkPalindrome(string s, int i , int j){
-        while( i < j ){
-            if(s[i] != s[j]){
-                return false;
-            }
-            ++i;
-            --j;
+    int solve(string s, int i, int j){
+        int cnt = 0 ;
+        while(i>=0 and j <s.size() and s[i]==s[j]){
+            ++cnt;
+            --i;
+            ++j;
         }
-        return true;
+        return cnt;
     }
     int countSubstrings(string s) {
-        int ans = 0 , n = s.size();
-        for(int i= 0 ; i <n; i++){
-            for(int j = i ; j <n; j++){
-                bool ck = checkPalindrome(s,i,j);
-                // cout<<s.substr(i,j-i+1)<< " " <<ck<<endl;
-                if(ck){
-                    ++ans;
-                }
-            }
+        int ans = 0 ;
+        for(int i = 0 ;i < s.size();i++){
+            ans += solve(s,i,i);
+            ans += solve(s,i,i+1);
         }
         return ans;
     }
