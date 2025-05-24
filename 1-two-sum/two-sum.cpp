@@ -1,18 +1,24 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int>ans;
-        unordered_map<int,int>um;
-        for(int i=0;i<nums.size();i++)  um[nums[i]] = i;
-        for(int i = 0 ; i<nums.size() ; i++){
-            int temp = target - nums[i];
-            if(um.find(temp) != um.end() and um[temp] != i){
-                // cout<<i<<" "<<nums[i]<<" "<<temp<<" "<<um[temp]<<endl;
-                ans.push_back(i);
-                ans.push_back(um[temp]);
-                return ans;
-            }
+        vector<pair<int,int>>vp;
+        for(int i= 0; i<nums.size(); i++){
+            vp.push_back({nums[i],i});
         }
-        return ans;
+        sort(vp.begin(),vp.end());
+        int i = 0 , j = nums.size()-1;
+        while(i<j){
+            int sum = vp[i].first + vp[j].first;
+            if(sum == target){
+                return {vp[i].second,vp[j].second};
+            }else if(sum > target){
+                --j;
+            }else{
+                ++i;
+            }
+
+        }
+        return {};
+        
     }
 };
