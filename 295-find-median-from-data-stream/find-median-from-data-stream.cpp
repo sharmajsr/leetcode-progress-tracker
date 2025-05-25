@@ -1,40 +1,34 @@
 class MedianFinder {
 public:
-    priority_queue<int>maxHeap;
-    priority_queue<int,vector<int>,greater<int>>minHeap;
+    priority_queue<int>maxH;
+    priority_queue<int,vector<int>,greater<int>>minH;
     MedianFinder() {
-        maxHeap.empty();
-        minHeap.empty();
+        maxH.empty();minH.empty();
     }
     
     void addNum(int num) {
-        if(!minHeap.empty() and num < minHeap.top()){
-            maxHeap.push(num);
+        if(maxH.empty()){
+            maxH.push(num);
+        }
+        else if(maxH.top() > num){
+            maxH.push(num);
         }else{
-            minHeap.push(num);
+            minH.push(num);
         }
-        
-        if(minHeap.size()  > maxHeap.size() +1 ){
-            maxHeap.push(minHeap.top());
-            minHeap.pop();
+        if(maxH.size()> minH.size() + 1){
+            minH.push(maxH.top());maxH.pop();
+        }else if(minH.size() > maxH.size()+1){
+            maxH.push(minH.top());minH.pop();
         }
-        if(maxHeap.size()  > minHeap.size() +1 ){
-            minHeap.push(maxHeap.top());
-            maxHeap.pop();
-        }
-
     }
     
     double findMedian() {
-        if(minHeap.size() == maxHeap.size()){
-            cout<<"Same \n";
-            return double(1.0*(minHeap.top()+maxHeap.top())*0.5);
-        }else if(minHeap.size() > maxHeap.size()){
-            cout<<"min \n";
-            return minHeap.top();
+        if(minH.size() == maxH.size()) {
+            return (maxH.top() + minH.top()) * 0.5;
+        }else if(maxH.size() > minH.size()){
+            return maxH.top();
         }else{
-            cout<<"max \n";
-            return maxHeap.top();
+            return minH.top();
         }
     }
 };
