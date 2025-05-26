@@ -10,52 +10,55 @@
  */
 class Solution {
 public:
-    ListNode* rever(ListNode* head){
+    ListNode* reverseList(ListNode* head){
         ListNode* prev = NULL;
         ListNode* next;
-        while(head){
+        while(head!=NULL){
             next = head->next;
-            head->next = prev;
+            head->next =prev;
             prev = head;
-            head = next;
+            head= next;
         }
         return prev;
     }
-    void prin(ListNode* head){
+    void printList(ListNode* head){
         while(head){
             cout<<head->val<<" ";
-            head = head->next;
-        }
+            head=head->next;
 
+        }cout<<endl;
     }
     void reorderList(ListNode* head) {
-        ListNode* slow , *fast , *next ,  *prev;
-        slow = head;
-        fast = head ;
+        if(!head or !head->next)  return ;
+        ListNode* dummyNode = new ListNode();
+        dummyNode->next =head;
+        ListNode* slow =head;
+        ListNode* fast = head;
+        ListNode* prev;
         while(slow and fast and fast->next){
-            prev =slow;
+            prev = slow;
             slow = slow->next;
             fast = fast->next->next;
         }
-        if(fast!=NULL){
-            prev = slow;
-            slow = slow->next;
+
+        ListNode* midNode ;
+        if(!fast){
+            midNode = reverseList(prev);
+            // printList(midNode);
+            prev->next =NULL;
+        }else{
+            midNode = reverseList(prev->next->next);
+            // printList(midNode);
+            prev->next->next = NULL;
         }
-
-        cout<<"prev val : " <<prev->val<<endl;
-        prev->next = NULL;
-        ListNode* midPoint= rever(slow);
-        // prin(midPoint);
-
-        ListNode* dummyNode = new ListNode(0);
-        dummyNode->next =head;
-       while(head && midPoint){
-            ListNode* midPointNext = midPoint->next;
-            midPoint->next = head->next;
-            head->next = midPoint;
+        while(head && midNode){
+            ListNode* temp = midNode->next;
+            midNode->next = head->next;
+            head->next = midNode;
             head=head->next->next;
-            midPoint = midPointNext;
+            midNode = temp;
         }
-        return ;
+        // return dummyNode->next;
+
     }
 };
