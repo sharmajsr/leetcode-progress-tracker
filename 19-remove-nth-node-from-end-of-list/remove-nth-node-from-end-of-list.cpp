@@ -19,21 +19,27 @@ public:
         return ans;
     }
     ListNode* removeNthFromEnd(ListNode* head, int n2) {
-        if(head->next == NULL and n2 ==1 )  return {};
+        int n = getLengthOfLL(head);
+        // if(!head->next and n2 == 1)  return NULL;
         ListNode* dummyNode = new ListNode();
-        dummyNode =head;
-        ListNode* ans = dummyNode;
+        dummyNode->next = head;
+        ListNode* prev = head;
+        n2 = n -n2;
+        if(n2 == 0 )    return head->next;
+        while(head and n2 != 0 ){
+            prev = head;
+            head = head->next;
+            --n2;
+        }
+        // cout<<"prev val : "<<prev->val<<endl;
+        if(!prev->next){
+            prev->next = NULL;
+        }else{
+            
+            prev->next = prev->next->next;
+        }
         
-        int n1 = getLengthOfLL(head);
-        int n = n1-n2-1 ;
-        if(n1 == n2)    return head->next;
-        while(head and n>0){
-            head=head->next;
-            n--;
-        }
-        if(head and head->next){
-            head->next = head->next->next;
-        }
-        return ans;
+        return dummyNode->next;
+
     }
 };
