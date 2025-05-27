@@ -1,22 +1,23 @@
 class Solution {
 public:
-    void solve(string digits,vector<string>&op,string curr){
-        if(digits.size() == 0 ){
-            op.push_back(curr);
+    void solve(string digits,vector<string>&ans,int idx,string cur){
+        if(idx == digits.size()){
+            ans.push_back(cur);
             return;
         }
-        string letters[] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        int currDigit = digits[0]-'0';
-        digits.erase(digits.begin());
-        string currDigitLetters = letters[currDigit];
-        for(auto i : currDigitLetters){
-            solve(digits,op,curr+i);
+        string nums[]= {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        int dig = digits[idx]-'0';
+        
+        string temp = nums[dig];
+        // cout<<idx<<" "<<digits.size()<<" "<<cur<<" "<<dig<<" "<<temp<<endl;
+        for(int i= 0 ;i <temp.size();i++){
+            solve(digits,ans,idx+1,cur+temp[i]);
         }
     }
     vector<string> letterCombinations(string digits) {
-        if(digits == "")    return {};
+        if(digits == "") return {};
         vector<string>ans;
-        solve(digits,ans,"");
+        solve(digits,ans,0,"");
         return ans;
     }
 };
