@@ -18,23 +18,28 @@ public:
         // }
         i = n ;
         j = m ;
-        while( i>0 and j>0){
-            if(s1[i-1] == s2[j-1]){
-                temp+=s2[j-1];
+        while(i> 0 and j > 0 ){
+            if(s1[i-1]==s2[j-1]){
+                temp += s1[i-1]; 
+                i -=1;
+                j -=1;
+                cout<<"if\n";
+            }else if(dp[i-1][j] > dp[i][j-1]){
+                 temp += s1[i-1];
                 --i;
-                --j;
-            }
-            else if(dp[i-1][j] > dp[i][j-1]){
-                temp += s1[i-1];
-                --i;
+                cout<<"else1\n";
             }else{
+               
+
                 temp += s2[j-1];
                 --j;
+                cout<<"else2\n";
             }
         }
+        cout<<i<<" "<<j<<endl;
         while(i>0){
             temp += s1[i-1];
-            --i;
+                --i;
         }
         while(j>0){
             temp += s2[j-1];
