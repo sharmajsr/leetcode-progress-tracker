@@ -1,17 +1,22 @@
 class Solution {
 public:
-int solve(string w1,string w2,int idx1, int idx2,vector<vector<int>>&dp){
-    if(idx1 <= 0 or idx2 <=0 )   return max(idx1,idx2);
-    if(dp[idx1][idx2] != -1)    return dp[idx1][idx2];
-    if(w1[idx1-1] == w2[idx2-1]){
-        return dp[idx1][idx2] = solve(w1,w2,idx1-1,idx2-1,dp);
-    }else {
-        return dp[idx1][idx2] = 1+ min(solve(w1,w2,idx1-1,idx2,dp),min(solve(w1,w2,idx1-1,idx2-1,dp),solve(w1,w2,idx1,idx2-1,dp)));
+    int solve(string s1, string s2,int x,int y,vector<vector<int>>&dp){
+        if(x  == 0 or y == 0 ) return dp[x][y] = max(x,y) ;
+        if(dp[x][y] != -1)  return dp[x][y];
+        if(s1[x-1] == s2[y-1]){
+            return dp[x][y] = solve(s1,s2,x-1,y-1,dp);
+        }else{
+            return dp[x][y] = 1 + min(solve(s1,s2,x-1,y-1,dp),min(solve(s1,s2,x,y-1,dp),solve(s1,s2,x-1,y,dp)));
+        }
     }
-}
-    int minDistance(string word1, string word2) {
-        int n = word1.size(), m = word2.size();
+    int minDistance(string s1, string s2) {
+        int n = s1.size() , m = s2.size();
         vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
-        return solve(word1,word2,word1.size(),word2.size(),dp);
+        solve(s1,s2,n,m,dp);
+        return dp[n][m] == -1 ? 0 : dp[n][m];
     }
 };
+
+// insert  -> horses , ros -> x, y-1
+// delete  -> horse , ros -> x-1 ,y
+// replace -> horss , ros -> x-1, y-1
