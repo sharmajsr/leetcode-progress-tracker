@@ -11,9 +11,31 @@ public:
     }
     int minDistance(string s1, string s2) {
         int n = s1.size() , m = s2.size();
-        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
-        solve(s1,s2,n,m,dp);
-        return dp[n][m] == -1 ? 0 : dp[n][m];
+        // vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        // solve(s1,s2,n,m,dp);
+        // return dp[n][m] == -1 ? 0 : dp[n][m];
+        // vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        vector<int>cur(m+1,0) , prev(m+1,0);
+
+        // for(int i= 0; i <= n ; i++) dp[i][0] = i; 
+        for(int j= 0; j <= m ; j++) prev[j] = j; 
+
+
+        for(int i= 1 ; i <= n; i++){
+            for(int j=0;j<=m;j++){
+                if(j==0){
+                    cur[0]=i;
+                    continue;
+                }
+                if(s1[i-1] == s2[j-1]){
+                    cur[j] =prev[j-1];
+                }else{
+                    cur[j] = 1+ min(cur[j-1],min(prev[j],prev[j-1]));
+                }
+            }
+            prev = cur;
+        }
+        return prev[m];
     }
 };
 
