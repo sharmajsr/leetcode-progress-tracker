@@ -1,27 +1,27 @@
 class Solution {
 public:
-    int lcs(string text1,string text2,int m,int n,vector<vector<int>>&dp){
-        if( m <= 0 or n <= 0)    return 0;
-        if(dp[m-1][n-1] != -1)  return dp[m-1][n-1];
-        if(text1[m-1] == text2[n-1]){
-            return dp[m-1][n-1] = 1+ lcs(text1,text2,m-1,n-1,dp);
+    int getLCS(string s1, string s2,int x ,int y,vector<vector<int>>&dp){
+        if(x == 0 || y == 0 )   return 0;
+        if(dp[x][y] != -1){
+            return dp[x][y];
         }
-        return dp[m-1][n-1] = max(lcs(text1,text2,m-1,n,dp),lcs(text1,text2,m,n-1,dp));
+        if(s1[x-1] == s2[y-1])  return dp[x][y] = 1+ getLCS(s1,s2,x-1,y-1,dp);
+        else
+        return dp[x][y] = max(getLCS(s1,s2,x-1,y,dp),getLCS(s1,s2,x,y-1,dp));
     }
-    int longestCommonSubsequence(string text1, string text2) {
-        int m = text1.size(), n = text2.size();
-        if( m== 0 or n ==0 )    return 0;
-        vector<vector<int>>dp(m+2,vector<int>(n+2,0));
-        for(int i = 1 ; i<= m; i++){
-            for(int j =1 ;j <= n;j++){
-                if(text1[i-1] == text2[j-1]){
-                    dp[i][j] = 1+dp[i-1][j-1];
+    int longestCommonSubsequence(string s1, string s2) {
+        int n = s1.size() , m = s2.size();
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        // return getLCS(s1,s2,s1.size(),s2.size(),dp);
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=m;j++){
+                if(s1[i-1] == s2[j-1]){
+                    dp[i][j] = 1 + dp[i-1][j-1];
                 }else{
-                    dp[i][j] = max(dp[i-1][j] , dp[i][j-1]);
+                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
                 }
             }
         }
-        // return lcs(text1,text2,m,n,dp);
-        return dp[m][n];
+        return dp[n][m];
     }
 };
