@@ -2,13 +2,16 @@ class Solution {
 public:
     int solve(vector<int>&prices,int buy,int c,int idx,vector<vector<vector<int>>>&dp){
         // cout<<idx<<" "<<buy<<" "<<c<<endl;
-        if(idx == prices.size()-1 ){
-            if(buy == 1){
-                return 0;
-            }else{
-                return prices[prices.size()-1];
-            }
+        if(idx == prices.size() ){
+            return 0;
         }
+        // if(idx == prices.size()-1 ){
+        //     if(buy == 1){
+        //         return 0;
+        //     }else{
+        //         return prices[prices.size()-1];
+        //     }
+        // }
         if(dp[idx][buy][c] != -1)   return dp[idx][buy][c];
         if(buy){
             if(c > 0 ){
