@@ -2,15 +2,17 @@ class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
         vector<vector<int>>ans;
-        priority_queue<pair<long long,vector<int>>>maxHeap;
-        for(auto i : points){
-            long long dis = ( (i[0] * i[0]) + (i[1]*i[1]) );
-            maxHeap.push({dis,i});
-            if(maxHeap.size() > k ) maxHeap.pop();
+        priority_queue<
+            pair<int,vector<int>>,
+            vector< pair<int,vector<int>>>,greater<pair<int,vector<int>>>>minH;
+        for(auto point: points){
+            int x = point[0] , y = point[1];
+            int dis = x*x + y*y;
+            minH.push({dis,point});
         }
-        while(!maxHeap.empty()){
-            ans.push_back(maxHeap.top().second);
-            maxHeap.pop();
+        while(!minH.empty() and k--){
+            ans.push_back(minH.top().second);
+            minH.pop();
         }
         return ans;
     }
