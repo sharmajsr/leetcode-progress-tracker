@@ -2,36 +2,36 @@ class Solution {
 public:
     string reorganizeString(string s) {
         unordered_map<char,int>um;
-        string ans;
-        int n = s.size();
-        if(n&1) n+=1;
+        string temp;
         for(auto i : s){
             ++um[i];
         }
-        priority_queue<pair<int,char>>maxH;
+        priority_queue<pair<int,char>>pq;
         for(auto i : um){
-            // cout<<i.first<< " "<<i.second<<" "<<n<<endl;
-            if(i.second > n/2)  return "";
-            maxH.push({i.second,i.first});
+            pq.push({i.second,i.first});
         }
-        while(!maxH.empty()){
-            auto e1 = maxH.top();maxH.pop();
-            ans += e1.second;
-            if(maxH.empty()) break;
-            pair<char,int>e2;
-            // if(maxH.size() > 0 )
-            e2 = maxH.top();maxH.pop();
+        while(!pq.empty()){
+            if(pq.size() == 1 and pq.top().first > 1) return "";
+            auto firs = pq.top(); pq.pop();
+            temp += firs.second;
+            pair<int,char> secon;
+            if(!pq.empty()){
+                secon= pq.top(); pq.pop();
+                temp += secon.second;
+            }
+            
+            
+            
+            if(firs.first-1>0) pq.push({firs.first-1,firs.second});
+            
+            if(secon.first-1>0) pq.push({secon.first-1,secon.second});
 
-            
-            // if(maxH.size() > 0 )
-            ans += e2.second;
-            
-            if(e1.first-1 > 0)  maxH.push({e1.first-1,e1.second});
-            // if(maxH.size() > 0 )
-            if(e2.first-1 > 0)  maxH.push({e2.first-1,e2.second});
-            // cout<<maxH.size()<<" "<<ans<<endl;
-            
         }
-        return ans ;
+        return temp;
     }
 };
+
+// a 3
+// b 1
+// 2 a
+// 0 b
