@@ -11,16 +11,15 @@ public:
             pq.push({i.second,i.first});
         }
         while(!pq.empty()){
+            cout<<"size : "<<pq.size()<<endl;
             if(pq.size() == 1 and pq.top().first > 1) return "";
             auto firs = pq.top(); pq.pop();
             temp += firs.second;
-            pair<int,char> secon;
+            pair<int,char> secon ;
             if(!pq.empty()){
-                secon= pq.top(); pq.pop();
+                secon = pq.top(); pq.pop();
                 temp += secon.second;
             }
-            
-            
             
             if(firs.first-1>0) pq.push({firs.first-1,firs.second});
             
