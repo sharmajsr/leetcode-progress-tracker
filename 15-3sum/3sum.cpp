@@ -15,11 +15,11 @@ public:
                     temp.push_back(nums[j]);
                     temp.push_back(nums[k]);
                     ans.insert(temp);
-                    // ++j;--k;
-                    while( j < n-1 and nums[j] == nums[j+1]) ++j;
-                    while( k > 0 and nums[k] == nums[k-1]) --k;
-                    ++j;
-                    --k;
+                    ++j;--k;
+                    while( j < n-1 and nums[j] == nums[j-1]) ++j;
+                    while( k > 0 and nums[k] == nums[k+1]) --k;
+                    // ++j;
+                    // --k;
                     
                 }else if(sum > 0 ){
                     --k;
