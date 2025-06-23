@@ -10,36 +10,30 @@
  */
 class Solution {
 public:
-    int getLengthOfLL(ListNode* head){
-        int ans = 0 ;
+    int getLengthOfLinkedList(ListNode *head){
+        int cnt = 0;
         while(head){
-            head=head->next;
-            ++ans;
+            ++cnt;
+            head= head->next;
         }
-        return ans;
+        return cnt;
     }
-    ListNode* removeNthFromEnd(ListNode* head, int n2) {
-        int n = getLengthOfLL(head);
-        // if(!head->next and n2 == 1)  return NULL;
-        ListNode* dummyNode = new ListNode();
-        dummyNode->next = head;
-        ListNode* prev = head;
-        n2 = n -n2;
-        if(n2 == 0 )    return head->next;
-        while(head and n2 != 0 ){
-            prev = head;
-            head = head->next;
-            --n2;
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(!head)   return head;
+        if(head->next == NULL and n == 1)   return NULL;
+        int len = getLengthOfLinkedList(head);
+        int k = len - n;
+        if(k == 0 ){
+            return head->next;
         }
-        // cout<<"prev val : "<<prev->val<<endl;
-        if(!prev->next){
-            prev->next = NULL;
-        }else{
-            
-            prev->next = prev->next->next;
+        ListNode* ans = head;
+        while(k!=1){
+            // cout<<head->val<<" ";
+            --k;
+            head=head->next;
         }
-        
-        return dummyNode->next;
-
+        // cout<<endl;
+        head->next = head->next->next;
+        return ans;
     }
 };
