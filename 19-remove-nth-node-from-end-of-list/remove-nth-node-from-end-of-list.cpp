@@ -20,7 +20,7 @@ public:
     }
     ListNode* removeNthFromEnd(ListNode* head, int n) {
         if(!head)   return head;
-        if(head->next == NULL and n == 1)   return NULL;
+        // if(head->next == NULL and n == 1)   return NULL;
         int len = getLengthOfLinkedList(head);
         int k = len - n;
         if(k == 0 ){
