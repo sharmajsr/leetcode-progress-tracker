@@ -1,29 +1,30 @@
 class Solution {
 public:
-vector<vector<int>>vis;
-    void dfs(int p ,int q ,vector<vector<char>>& grid){
+    void solve(vector<vector<char>>& grid,vector<vector<int>>& vis,int r, int c){
+        vis[r][c] =1;
         int rows[] = {0,0,1,-1};
-        int cols[] = {1,-1,0,0};
-        grid[p][q]='0';
-        vis[p][q] = 1 ;
+        int cols[]= {1,-1,0,0};
         for(int i=0;i<4;i++){
-            int nrow = rows[i] + p;
-            int ncol = cols[i] + q;
-            if(nrow>=0 and ncol >=0 and nrow<grid.size() and ncol < grid[0].size() and grid[nrow][ncol] == '1' and vis[nrow][ncol]==0){
-                dfs(nrow,ncol,grid);
+            int nr = rows[i]+r;
+            int nc = cols[i]+c;
+            if(nr >=0 and nr< grid.size() and nc>=0 and nc<grid[0].size() and grid[nr][nc] == '1' and vis[nr][nc] == 0){
+                solve(grid,vis,nr,nc);
             }
         }
     }
     int numIslands(vector<vector<char>>& grid) {
-        vis.resize(grid.size(),vector<int>(grid[0].size(),0)) ;int  ans =0 ;
-        for(int i=0;i<grid.size();i++){
-            for(int j=0;j<grid[0].size();j++){
-                if(grid[i][j] == '1'){
-                    dfs(i,j,grid);
-                    ++ans;
+        int n = grid.size();
+        int m =grid[0].size();
+        int cnt = 0; 
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        for(int i= 0; i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j] == '1' and vis[i][j] == 0 ){
+                    ++cnt;
+                    solve(grid,vis,i,j);
                 }
             }
         }
-        return ans;
+        return cnt;
     }
 };
