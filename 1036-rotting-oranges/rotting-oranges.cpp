@@ -24,10 +24,10 @@ public:
         int n = grid.size();
         int m =grid[0].size() ,maxi = 0 ;
         queue<pair<pair<int,int>,int>>q;
-        vector<vector<int>>vis(n,vector<int>(m,0));
+        // vector<vector<int>>vis(n,vector<int>(m,0));
         for(int i= 0; i<n;i++){
             for(int j=0;j<m;j++){
-                if(grid[i][j] == 2 and vis[i][j] == 0 ){
+                if(grid[i][j] == 2  ){
                     q.push({{i,j},0});
                 }
             }
