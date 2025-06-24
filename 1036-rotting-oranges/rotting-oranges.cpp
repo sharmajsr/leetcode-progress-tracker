@@ -1,52 +1,47 @@
 class Solution {
 public:
-    int solve(vector<vector<int>>& grid,queue<pair<pair<int,int>,int>>q ,vector<vector<int>>&vis,int &cnt){
-        int rows[] = {0,0,1,-1}  , cols[] = {1,-1,0,0} ;
-        // int cnt = 0 ; 
-        
+    void solve(vector<vector<int>>& grid,queue<pair<pair<int,int>,int>>q,int &maxi){
+        int rows[] = {0,0,1,-1};
+        int cols[] = {1,-1,0,0};
         while(!q.empty()){
-            auto top = q.front();q.pop();
-            pair<int,int> cor = top.first;
-            int time = top.second ; 
+            auto fr = q.front();
+            pair<int,int>coord =  fr.first;
+            int time = fr.second;
             
-            for(int i= 0; i < 4; i++ ){
-                int nr = cor.first + rows[i];
-                int nc = cor.second + cols[i];
-
-                if(nr >=0 and nr < grid.size() and nc >=0 and nc < grid[0].size() and grid[nr][nc] == 1  ){
-                    // vis[nr][nc] =1; 
-                    cnt = max(cnt,time+1);
-                    grid[nr][nc]=0;
-                    q.push({{nr,nc},time+1});
+            q.pop();
+            for(int i= 0 ;i < 4 ;i++){
+                int r = rows[i] + coord.first;
+                int c = cols[i] + coord.second;
+                if(r >= 0 and r <grid.size() and c >= 0 and c < grid[0].size() and grid[r][c] == 1 ){
+                    grid[r][c] = 2;
+                    maxi = max(maxi,time+1);
+                    q.push({{r,c},time+1});
                 }
             }
         }
-        return cnt;
     }
     int orangesRotting(vector<vector<int>>& grid) {
-        
-        int n = grid.size() , m = grid[0].size() ,cnt = 0;
-        vector<vector<int>>vis(n,vector<int>(m,0));
+        int n = grid.size();
+        int m =grid[0].size() ,maxi = 0 ;
         queue<pair<pair<int,int>,int>>q;
-        for(int i =0 ;i < n; i++){
-            for(int j= 0 ;j < m;j++){
-                if(grid[i][j]==2){
-                    vis[i][j]  = 1;
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        for(int i= 0; i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j] == 2 and vis[i][j] == 0 ){
                     q.push({{i,j},0});
                 }
             }
         }
-        cnt = solve(grid,q,vis,cnt);
-
-        for(int i =0 ;i < n; i++){
-            for(int j= 0 ;j < m;j++){
-                if(grid[i][j] == 1){
-                    cout<<"fresh : "<<i<<" "<<j<<endl;
+        solve(grid,q,maxi);
+        for(int i= 0; i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j] == 1 ){
                     return -1;
                 }
             }
         }
 
-        return cnt;
+
+        return maxi;
     }
 };
