@@ -1,19 +1,22 @@
 class Solution {
 public:
-    vector<int>ans;
-    void dfs(int curr,int n){
-        if(curr>n) return ;
-        ans.push_back(curr);
-        for(int i=0;i<=9;i++){
-            int x = curr * 10 + i;
-            if(x > n)   return;
-            dfs(x,n);
-        }
-    }
     vector<int> lexicalOrder(int n) {
-        for(int i= 1 ;i<=9;i++){
-            dfs(i,n);
+        vector<int> ans;
+        unordered_map<char,vector<string>>um;
+        for(int i=1 ; i <=n; i++){
+            string temp = to_string(i);
+            um[temp[0]].push_back(temp);
         }
+        for(int i=1;i<=9;i++){
+            // cout<<i+'0'<<endl;
+            vector<string>temp = um[i+'0'];
+            sort(temp.begin(),temp.end());
+            for(auto j: temp){
+                ans.push_back(stoi(j));
+            }
+        }
+
         return ans;
+        
     }
 };
