@@ -7,18 +7,15 @@ public:
         unordered_map<int,int>um;
 
         while(j<n){
-            // cout<<i<<" "<<j<<" "<<um.size()<<" "<<maxLen<<endl;
             ++um[f[j]];
             if(um.size() > k){
-                while(um.size() > k ){
-                    --um[f[i]];
-                    if(um[f[i]] == 0 ){
-                        um.erase(f[i]);
-                    }
-                    ++i;
+                --um[f[i]];
+                if(um[f[i]] == 0 ){
+                    um.erase(f[i]);
                 }
+                ++i;
             }
-            maxLen = max(maxLen,j-i+1);
+            if(um.size() <= k)maxLen = max(maxLen,j-i+1);
             ++j;
         }
         return maxLen;
