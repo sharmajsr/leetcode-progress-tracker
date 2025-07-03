@@ -1,30 +1,27 @@
 class Solution {
 public:
-    int solve(vector<int>&prices,int idx,int buy,int fee,vector<vector<int>>&dp){
-        if( idx == prices.size())   return 0;
+    int solve(vector<int>&prices, int buy, int idx,vector<vector<int>>&dp,int fee){
+
+        if(idx == prices.size()){
+            return 0;
+        }
+
         if(dp[idx][buy] != -1)  return dp[idx][buy];
+
         if(buy){
-            return dp[idx][buy] = max( -prices[idx] + solve(prices,idx+1,0,fee,dp),solve(prices,idx+1,1,fee,dp));
+            int not_take = solve(prices,1,idx+1,dp,fee);
+            int take = 0;
+            // if(c == 1){
+                take = -prices[idx] + solve(prices,0,idx+1,dp,fee); 
+            // }
+            return dp[idx][buy] = max( take, not_take );
         }else{
-            return dp[idx][buy] = max( prices[idx] -fee + solve(prices,idx+1,1,fee,dp),solve(prices,idx+1,0,fee,dp));
+            return dp[idx][buy] = max(prices[idx] + solve(prices,1,idx+1,dp,fee) -fee, solve(prices,0,idx+1,dp,fee)) ;
         }
     }
     int maxProfit(vector<int>& prices, int fee) {
         int n = prices.size();
-        vector<vector<int>>dp(prices.size()+1,vector<int>(2,-1));
-        solve(prices,0,1,fee,dp);
-        // vector<int>temp(2,0),dp(2,0);
-        // for(int i=n-1;i>=0 ;i--){
-        //     for(int j=0;j<2;j++){
-        //         if( j==1 ){
-        //             temp[j] = max(-prices[i] + dp[0],dp[1]);
-        //         }else{
-        //             temp[j] = max(prices[i]-fee+dp[1],dp[0]);
-        //         }
-        //     }
-        //     dp =temp;
-        // }
-        // return dp[1];
-        return dp[0][1];
+        vector<vector<int>>dp(n,vector<int>(2,-1));
+        return solve(prices,1,0,dp,fee);
     }
 };
