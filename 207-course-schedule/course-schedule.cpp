@@ -1,30 +1,31 @@
 class Solution {
 public:
-    bool canFinish(int numCourses, vector<vector<int>>& pre) {
-        vector<int>in(numCourses,0);
-        vector<int>adj[2001];
+    bool canFinish(int n, vector<vector<int>>& prerequisites) {
+        // b->a
         vector<int>temp;
-        for(int i= 0; i < pre.size(); i++){
-            ++in[pre[i][0]];
-            adj[pre[i][1]].push_back(pre[i][0]); 
+        vector<int>adj[2002];
+        vector<int>in(n);
+        for(auto i : prerequisites){
+            ++in[i[0]];
+            adj[i[1]].push_back(i[0]);
         }
         queue<int>q;
-        for(int i= 0 ;i < numCourses; i++){
+        for(int i = 0 ;i < n; i++){
             if(in[i] == 0 ){
                 q.push(i);
             }
         }
+
         while(!q.empty()){
-            auto top = q.front();
-            q.pop();
-            temp.push_back(top);
-            for(auto it : adj[top]){
+            int fr = q.front();q.pop();
+            temp.push_back(fr);
+            for(auto it : adj[fr]){
                 --in[it];
-                if(in[it] == 0){
+                if( in[it] == 0 ){
                     q.push(it);
                 }
             }
         }
-        return temp.size() == numCourses;
+        return temp.size() == n;
     }
 };
