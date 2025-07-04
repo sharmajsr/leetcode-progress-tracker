@@ -25,7 +25,7 @@ public:
                     return false;
                 }
             }else{
-                st.push(i);
+                return false;
             }
         }
         return st.size() == 0 ;
