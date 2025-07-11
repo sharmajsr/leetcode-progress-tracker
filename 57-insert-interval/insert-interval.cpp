@@ -1,35 +1,25 @@
 class Solution {
-public:
-    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
-        int n = intervals.size();
-        int i = 0 ;
-        vector<vector<int>>ans;
-        while(i < n and intervals[i][1] < newInterval[0]){
-            ans.push_back(intervals[i]);
-            i+=1;
-        }
-        // cout<<"left : " <<ans.size()<<" "<<i<<endl;
-        while(i < n and intervals[i][0] <= newInterval[1]  ){
-            newInterval[0] = min(newInterval[0], intervals[i][0]);
-            newInterval[1] = max(newInterval[1], intervals[i][1]);
-            i+=1;
-        }
-        
-        ans.push_back(newInterval);
-        // cout<<"right : " <<ans.size()<<" "<<newInterval[0]<<" "<<newInterval[1]<<" "<<i<<endl;
-        while(i < n){
-            ans.push_back(intervals[i]);
-            ++i;
-        }
 
-        return ans;
+public:
+    static bool compareIntervals(const vector<int>& a, const vector<int>& b) {
+        return a[0] < b[0];
+    }
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>> all = intervals;
+        all.push_back(newInterval);
+
+        // 3. Sort using our named function
+        sort(all.begin(), all.end(), compareIntervals);
+
+        // 4. Merge pass
+        vector<vector<int>> merged;
+        for (auto& iv : all) {
+            if (merged.empty() || merged.back()[1] < iv[0]) {
+                merged.push_back(iv);
+            } else {
+                merged.back()[1] = max(merged.back()[1], iv[1]);
+            }
+        }
+        return merged;
     }
 };
-
-// start
-// 1
-// 6
-
-// End
-// 3
-// 9
