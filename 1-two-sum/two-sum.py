@@ -1,33 +1,21 @@
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        
-        pair_nums = [] 
-        for i in range(len(nums)):
-            pair_nums.append([nums[i],i])
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        new_list = []
+        n = len(nums)
+        for i in range(n):
+            temp = [nums[i],i]
+            new_list.append(temp)
 
-
-        # print(pair_nums)
-
-        pair_nums.sort(key =lambda pair: pair[0])
-
-        # print(pair_nums)
-
+        new_l = sorted(new_list , key =lambda x : x[0])
+        print(new_l)
         i = 0 
-        j = len(nums)-1
-        while i<=j:
-            sum1 = pair_nums[i][0] + pair_nums[j][0]
-            if(sum1 == target):
-                return [pair_nums[i][1],pair_nums[j][1]]
-            elif sum1 > target : 
-                j -=1 
+        j = n-1
+        while i<j:
+            sum1 = new_l[i][0] + new_l[j][0]
+            if sum1 == target :
+                return [new_l[i][1] , new_l[j][1]]
+            elif sum1 > target :
+                j-=1
             else:
                 i+=1
-
-
-
-        
+        return -1    
