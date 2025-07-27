@@ -8,24 +8,15 @@ public:
             sum += nums[j];
             if(sum < target){
                 ++j;
-            }else if( sum > target){
-                while(sum > target){
+            }else if( sum >= target){
+                while(sum >= target){
                     minLen = min(minLen, j-i+1);
                     sum -= nums[i];
                     ++i;
                 }
-                if(sum == target)   minLen = min(minLen, j-i+1);
-                ++j;
-            }else if(sum == target){
-                // if(sum == target){
-                    minLen = min(minLen, j-i+1);
-                // }
-                // minLen = min(minLen, j-i+1);
-                // sum -= nums[i];
-                // ++i;
+                
                 ++j;
             }
-            // cout<<i<< " "<<j<<" "<<sum<<" "<<minLen<<endl;
         }
         return minLen == INT_MAX ? 0 : minLen;
     }
