@@ -1,25 +1,23 @@
 class Solution {
-
 public:
-    static bool compareIntervals(const vector<int>& a, const vector<int>& b) {
+    static bool cmp(vector<int>&a, vector<int>&b){
         return a[0] < b[0];
     }
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
-        vector<vector<int>> all = intervals;
-        all.push_back(newInterval);
+        vector<vector<int>>ans;
+        int n = intervals.size();
+        intervals.push_back(newInterval);
+        sort(intervals.begin(),intervals.end());
+        for(int i= 0 ; i<=n;i++){
 
-        // 3. Sort using our named function
-        sort(all.begin(), all.end(), compareIntervals);
-
-        // 4. Merge pass
-        vector<vector<int>> merged;
-        for (auto& iv : all) {
-            if (merged.empty() || merged.back()[1] < iv[0]) {
-                merged.push_back(iv);
-            } else {
-                merged.back()[1] = max(merged.back()[1], iv[1]);
+            if(ans.empty() or ans.back()[1] < intervals[i][0]){
+                ans.push_back(intervals[i]);
+            }else{
+                ans.back()[1] =  max(ans.back()[1], intervals[i][1]);
             }
         }
-        return merged;
+        return ans;
     }
 };
+// [ [1,3] , [2,5] ,[3,5] [6,9]    ],
+// [ [1,3]           ]
