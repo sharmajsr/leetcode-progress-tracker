@@ -2,11 +2,13 @@ class Solution {
 public:
     bool canJump(vector<int>& nums) {
         bool ans = false;
-        int n = nums.size();
-        int nextH = 0;
-        for(int i = 0 ; i <= nextH and i < n; i++){
+        int n = nums.size() ;
+        int nextH = 0 ;
+        for(int i = 0 ;  i < n; i++){
+            if( nextH < i ){
+                return false;
+            }
             nextH = max(nextH,nums[i]+i);
-            // cout<<i<<" "<<nextH<<endl;
             if(nextH >= n-1){
                 return true;
             }
