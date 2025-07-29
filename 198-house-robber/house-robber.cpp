@@ -1,20 +1,18 @@
 class Solution {
-private:
-    int solve(int idx, vector<int>&nums,vector<int>&dp){
-        if(idx < 0  ){
-            return 0;
-        }
-        if(dp[idx] != -1) return dp[idx];
-        int take = nums[idx] + solve(idx-2,nums,dp);
-        int not_take = solve(idx-1,nums,dp);
-
-        return dp[idx] = max(take,not_take);
-    }
 public:
+vector<int>dp;
+    int solve(vector<int>nums, int idx){
+        if(idx<0)   return 0;
+        if(dp[idx]!=-1) return dp[idx];
+        int take = nums[idx] + solve(nums,idx-2);
+        int not_take = solve(nums,idx-1);
+        return dp[idx] = max(take, not_take);
+    }
     int rob(vector<int>& nums) {
         
-        int n = nums.size() ;
-        vector<int>dp(n,-1);
-        return solve(n-1,nums,dp);
+        int n = nums.size();
+        dp.resize(n,-1);
+        solve(nums,n-1);
+        return dp[n-1];
     }
 };
