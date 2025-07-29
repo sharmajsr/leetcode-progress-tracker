@@ -1,7 +1,7 @@
 class Solution {
 public:
 vector<vector<int>>dp;
-    int solve(string s1, string s2, int x1, int x2){
+    int solve(string &s1, string &s2, int x1, int x2){
         if( x1 < 0 or x2 < 0 ){
             return max(x1,x2);
         }
