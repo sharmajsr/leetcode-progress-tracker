@@ -18,23 +18,22 @@ public:
         vector<vector<int>>ans;
         bool order = true;
         while(!q.empty()){
-            queue<TreeNode*>qu;
             vector<int>temp;
-            while(!q.empty()){
-                auto fr = q.front();
+            int n = q.size();
+            for(int i=0;i<n;i++){
+                auto fr = q.front();q.pop();
+
                 temp.push_back(fr->val);
-                q.pop();
-                if(fr->left ) qu.push(fr->left);
-                if(fr->right ) qu.push(fr->right);
+                
+                if(fr->left ) q.push(fr->left);
+                if(fr->right ) q.push(fr->right);
             }
             if(!order){
                 reverse(temp.begin(),temp.end());
             }
             ans.push_back(temp);
-            
             order = !order;
-            q = qu;
-
+            // q = qu;
         }
         return ans;
     }
