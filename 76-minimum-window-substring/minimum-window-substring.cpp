@@ -16,10 +16,10 @@ public:
                     ans= j-i+1;
                     start = i;
                 }
-                um[ s[i] ]++;
-                if(um[s[i]] > 0){
+                if(um[s[i]] == 0){
                     cnt -=1;
                 }
+                um[ s[i] ]++;
                 ++i;
             }
             ++j;
