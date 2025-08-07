@@ -1,11 +1,12 @@
 class Solution {
 public:
-    int maxProfit(vector<int>& prices) { 
-        int maxProfit = 0 , stockBuyPrice = prices[0],n = prices.size();
-        for(int i= 0; i <n ; i++){
-            maxProfit = max(maxProfit,prices[i]-stockBuyPrice);
-            stockBuyPrice = min(prices[i],stockBuyPrice);
+    int maxProfit(vector<int>& prices) {
+        int minBuyDay= INT_MAX , n = prices.size() , ans = 0;
+        for(int i= 0; i<n; i++){
+            // cout<<i<<" "<<prices[i]<<" "<<minBuyDay<<" "<<ans<<endl; 
+            ans = max(ans,  prices[i] - minBuyDay );
+            minBuyDay = min(minBuyDay, prices[i]);
         }
-        return maxProfit;
+        return ans;
     }
 };
