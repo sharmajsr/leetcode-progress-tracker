@@ -7,10 +7,8 @@ public:
         cout<<endl;
     }
     void solve(vector<vector<int>>&ans , vector<int>path, int k, int n,int idx){
-        cout<<n<<endl;
+        // cout<<n<<endl;
         if( n == 0){
-            // cout<<"Printing path : " ;
-            // printEl(path);
             if(k == 0) {
                 ans.push_back(path);
                 return;
