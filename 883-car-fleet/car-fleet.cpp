@@ -1,19 +1,28 @@
 class Solution {
 public:
     int carFleet(int target, vector<int>& position, vector<int>& speed) {
-        int ans , n= speed.size();
-        stack<float>st;
-        vector<pair<int,int>>v;
-        for(int i = 0; i <n; i++){
-            v.push_back({position[i],speed[i]});
+        int n = speed.size();
+        vector<int>left(n,0);
+        vector<pair<int,int>>vp;
+        stack<double>st;
+        for(int i = 0 ;i < n ; i++){
+            left[i] = target - position[i];
+            vp.push_back({left[i],i});
         }
-        sort(v.begin(),v.end());
-        for(int i = n -1; i >=0 ; i--){
-            float time = (target - v[i].first) * 1.0/v[i].second;
-            // cout<<i<<" "<<position[i]<<" "<<speed[i]<<" "<<time<<endl;
-            if(st.empty()) st.push(time);
-            else if(st.top() < time) st.push(time);
+        sort(vp.begin(), vp.end());
+        for(int i = 0 ; i< n ; i++){
+            double reachTime =  ( vp[i].first *1.0 )/ (speed[vp[i].second] * 1.0 ) ;  
+            // cout<<i<<" "<<reachTime<<endl;
+            if(st.empty()) { 
+                st.push(reachTime);
+            }else{
+                if(st.top() == reachTime or st.top() > reachTime) continue;
+                st.push(reachTime);
+            }
         }
         return st.size();
     }
 };
+// [2,4,7,9,12]
+// [2,4,1,3,1]
+// 1 , 1 ,7 , 3 , 12
