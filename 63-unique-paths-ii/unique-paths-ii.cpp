@@ -1,23 +1,27 @@
 class Solution {
 public:
-    int solve(int m,int n,vector<vector<int>>& obstacleGrid,vector<vector<int>>&dp){
-        if(m == 0 and n== 0){
-            if(obstacleGrid[m][n] == 1) return 0;
+    int solve(vector<vector<int>>& obstacleGrid , int cr, int cc,vector<vector<int>>&dp){
+        int n = obstacleGrid.size() , m = obstacleGrid[0].size();
+        if(cr == obstacleGrid.size()-1 and cc == obstacleGrid[0].size()-1){
             return 1;
         }
-        else if(m < 0 or n < 0){
+        if(cr > obstacleGrid.size()-1 or cc > obstacleGrid[0].size()-1){
             return 0;
         }
-        else if(obstacleGrid[m][n] == 1){
-            return 0;
+        if(dp[cr][cc] != -1 ) return dp[cr][cc];
+        int p1 =0 , p2 = 0;
+        if( cr+1 < n  and  obstacleGrid[cr+1][cc] == 0 ){
+            p1 = solve(obstacleGrid, cr+1,cc,dp);
         }
-        if(dp[m][n] != -1)  return dp[m][n];
-        return dp[m][n] = solve(m-1,n,obstacleGrid,dp) +solve(m,n-1,obstacleGrid,dp);
-
+        if(cc+1 < m and obstacleGrid[cr][cc+1] == 0 ){
+            p2 = solve(obstacleGrid, cr,cc+1,dp);
+        }
+        return dp[cr][cc] = p1 + p2 ;
     }
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
-        int n = obstacleGrid.size(),m=obstacleGrid[0].size();
+        int n = obstacleGrid.size() , m = obstacleGrid[0].size();
+        if(obstacleGrid[0][0] ) return 0;
         vector<vector<int>>dp(n,vector<int>(m,-1));
-        return solve(n-1,m-1,obstacleGrid,dp);
+        return solve(obstacleGrid,0,0,dp);
     }
 };
