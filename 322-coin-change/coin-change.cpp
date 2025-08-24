@@ -1,17 +1,30 @@
 class Solution {
 public:
-    int coinChange(vector<int>& coins, int amount) {
-        vector<int>dp(amount+1,INT_MAX);
-        dp[0]=0;
-        for(int i=1;i<=amount ;i++){
-            for(int j=0;j<coins.size();j++){
-               if( i>= coins[j] ){
-                    // cout<<i<<" "<<coins[j]<<" "<<dp[i-coins[j]]<<endl;
-                    int maxi = dp[i-coins[j]] == INT_MAX?dp[i-coins[j]]:1+dp[i-coins[j]];
-                    dp[i] = min(dp[i] , maxi);
-               }
-            }
+    int solve(vector<int>&coins, int amount, int idx, vector<vector<int>>&dp){
+        if(amount == 0 ){
+            return dp[idx][amount] = 0 ;
         }
-        return dp[amount] == INT_MAX ? -1 :dp[amount];
+        if(idx == 0 ){
+            if(amount%coins[idx] == 0 ){
+                return dp[idx][amount] = amount/coins[idx];
+            }
+            return 1e9;
+        }
+        if(dp[idx][amount] != -1) return dp[idx][amount];
+        int not_take = solve(coins , amount , idx-1, dp);
+        int take = INT_MAX, minTake = 1e9;
+        if(amount>= coins[idx]){
+            take = 1+ solve(coins,amount - coins[idx] , idx, dp);
+        }
+        return dp[idx][amount] = min(take, not_take);
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+        vector<vector<int>>dp(n, vector<int>(amount+1,-1));
+        solve(coins,amount, n-1 , dp);
+        if(dp[n-1][amount] == 1e9){
+            return -1;
+        }
+        return dp[n-1][amount];
     }
 };
