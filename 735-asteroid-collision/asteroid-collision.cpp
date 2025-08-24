@@ -1,44 +1,50 @@
 class Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) {
-        stack<int> st;
-        vector<int> v;
+        stack<int>st;
+        vector<int>ans;
         for(auto i : asteroids){
             if(st.empty()){
                 st.push(i);
-            }
-            else if(!st.empty() and st.top() > 0 and i<0 ){
-                int val = i;
-                bool isSame = true;
-                while(!st.empty() and st.top() * i < 0 ){
-                    int top = st.top();
-                    cout<<top<<" "<<i<<endl;
+            }else if(!st.empty() and i > 0 ){
+                st.push(i);
+            }else if(!st.empty() and i < 0 ){
+                int lastEl = 0 ;
+                while(!st.empty() and st.top() > 0 and st.top() <= abs(i)){
+                    
+                    lastEl = st.top();
                     st.pop();
-                    if(abs(i) == abs(top)){
-                        isSame = false;
+                    if(lastEl == abs(i)){
                         break;
-                    }else if(abs(top) > abs(i)){
-                        st.push(top);
-                        break;
-                    }else{
-                        continue;
                     }
                 }
-                if(isSame){
-                    if(st.empty())  st.push(i);
-                    else if(!st.empty() and st.top() < 0 )    st.push(i);
-                } 
-                
-            }else {
-                 st.push(i);
+                if(st.empty()){    //no element in stack
+                    if(lastEl < abs(i)){ 
+                        st.push(i);
+                    }else if(lastEl == abs(i)){
+                        continue;
+                    }
+                }else{     // elements are present in stack
+                    // last el was bigger than i
+                    //
+                    if(st.top()> 0 ){
+                        continue;
+                    }
+                    else{
+                        if(abs(i) == lastEl){ // st has neg element at top, but last popped element has same quantity
+                            continue;
+                        }else{  // st has neg element at top, but last popped element has smaller quantity
+                            st.push(i);
+                        }
+                    }
+                }   
             }
-            
         }
-        
         while(!st.empty()){
-            v.push_back(st.top());st.pop();
+            ans.push_back(st.top());
+            st.pop();
         }
-        reverse(v.begin(),v.end());
-        return v;
+        reverse(ans.begin() , ans.end());
+        return ans;
     }
 };
