@@ -8,24 +8,32 @@ public:
             ++um[t[i]];
         } 
         i=0;
+        cnt = m;
         while(j<n ){
-            if( um[s[j]] > 0 ) cnt += 1;
+            if(um[s[j]] > 0){
+                --cnt;
+            }
             --um[s[j]];
-            while( cnt == m ){
-                if(j-i+1 < ans){
-                    ans= j-i+1;
-                    start = i;
+
+            if(cnt == 0 ){
+                
+                while(cnt == 0 ){
+                    if(j-i+1 < ans){
+                        ans = j-i+1;
+                        start = i;
+                    }
+                    ++um[s[i]];
+                    if(um[s[i]] > 0 ){
+                        ++cnt;
+                    }
+                    ++i;
                 }
-                if(um[s[i]] == 0){
-                    cnt -=1;
-                }
-                um[ s[i] ]++;
-                ++i;
             }
             ++j;
         }
         return start == -1? "": s.substr(start,ans);
-        
-
     }
 };
+
+// A - 0, B - 0, C - 0, D - -1 , O - -1 , E - -1
+// cnt = 0
