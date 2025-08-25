@@ -1,3 +1,8 @@
+// dekho ideally isme we dont have to push the char with its freq, what matters to us is only freq.
+// as given take out first n+1 element from help and push it to a vector, also add heap not empty condition
+// push vector in push , only if freq-1 > 0
+// if heap is not empty, means current element k liye apna (n+1) zaoorat pada tha
+// else added temp vector size to ans, since it is the last
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
