@@ -14,11 +14,9 @@ public:
                 --cnt;
             }
             --um[s[j]];
-
             if(cnt == 0 ){
-                
                 while(cnt == 0 ){
-                    if(j-i+1 < ans){
+                    if( ans > j-i +1){
                         ans = j-i+1;
                         start = i;
                     }
