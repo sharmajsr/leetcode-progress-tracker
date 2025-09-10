@@ -1,17 +1,18 @@
 class Solution {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<int>adj[2002];
         vector<int>in(numCourses,0);
+        vector<int>adj[2002];
+        queue<int>q;
         vector<int>ans;
         for(auto i :prerequisites ){
-            int v = i[0];
-            int u = i[1];
-            adj[u].push_back(v);
-            ++in[v];
+            int u = i[0] , v = i[1];
+            // adj[u].push_back(v);
+            adj[v].push_back(u);
+            ++in[u];
+
         }
-        queue<int>q;
-        for(int i = 0 ;i <numCourses;i++){
+        for(int i=0;i<numCourses ;i++){
             if(in[i] == 0 ){
                 q.push(i);
             }
