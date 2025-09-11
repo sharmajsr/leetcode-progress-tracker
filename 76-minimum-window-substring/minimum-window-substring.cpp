@@ -7,31 +7,37 @@ public:
         for(int i= 0; i <t.size(); i++){
             ++um[t[i]];
         } 
-        i=0;
-        cnt = m;
-        while(j<n ){
-            if(um[s[j]] > 0){
-                --cnt;
-            }
+        cnt=0;
+        while(j<n){
             --um[s[j]];
-            if(cnt == 0 ){
-                while(cnt == 0 ){
-                    if( ans > j-i +1){
-                        ans = j-i+1;
-                        start = i;
+            if(um[s[j]] >= 0 ){
+                cnt+=1;
+            }
+            if(cnt == t.size()){
+                while(cnt== t.size()){
+                    if(ans > j-i+1){
+                        ans =  j-i+1; 
+                        start = i; 
                     }
                     ++um[s[i]];
                     if(um[s[i]] > 0 ){
-                        ++cnt;
-                    }
+                        --cnt;
+                    } 
                     ++i;
                 }
+                ++j;
+
+            }else{
+               ++j; 
             }
-            ++j;
         }
+        
         return start == -1? "": s.substr(start,ans);
     }
 };
 
-// A - 0, B - 0, C - 0, D - -1 , O - -1 , E - -1
-// cnt = 0
+// ABC -> { A:0 , B : 0 , C:1, D : 0 , O: 0, E: 0, N= -1, }
+//                   i
+//                         j
+// A D O B E C O D E B A N C
+// cnt = 3
